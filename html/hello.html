@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello hana7!</title>
+    <style>
+      .red {
+        color: red;
+      }
+    </style>
+    <!-- <link rel="stylesheet" href="style.css"></link> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.config.js"></script>
+  </head>
+  <body class="m-4 relative">
+    <h1 class="text-7xl text-ocean font-bold inline-block mb-7 bg-peace">
+      TailWindCSS
+    </h1>
+    <div>
+      Yesterday is history.
+      <span id="upper"
+        >But today is gift.
+        <span class="inner">Inner Span</span>
+      </span>
+    </div>
+    <div>Tomorrow is mystery.</div>
+    <div>Today is a gift.</div>
+    <div>That's why it's called the present.</div>
+    <section
+      class="bg-black text-green-400 p-4 text-4xl w-1/6 text-center rounded-md absolute top-0 right-0"
+    >
+      hanaro
+    </section>
+    <ul class="list-decimal list-inside">
+      <li class="first:text-red-500">
+        1
+        <small class="text-blue-400">remark</small>
+      </li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <img
+      src="../html/images//creative-bg-04.jpg"
+      class="animate-bounce float-right"
+      alt="image"
+    />
+
+    <form
+      action=""
+      id="frm"
+      name="frm"
+      class="border-2 border-sky-200 inline-block"
+      method="POST"
+    >
+      <input
+        class="p-4 border-2 focus:outline-none"
+        type="text"
+        id="email"
+        placeholder="Email..."
+      />
+      <input
+        class="p-4 border-2 focus:outline-none"
+        type="password"
+        id="pw"
+        placeholder="Password..."
+      />
+      <div class="flex justify-between">
+        <button
+          class="bg-gray-500 p-2 text-white px-2 hover:bg-black shadow-md"
+          type="reset"
+        >
+          Reset
+        </button>
+        <button
+          class="bg-danger p-2 text-white px-2 hover:bg-red-800 shadow-md"
+        >
+          Remove
+        </button>
+        <button
+          class="bg-yellow-200 p-2 text-white px-2 rounded-sm shadow-md hover:bg-red-300"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

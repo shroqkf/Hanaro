@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+/* div {
+  width: 5rem;
+} */
+
+ul li {
+  margin: 1rem 0;
+  padding: 2rem 3rem;
+}
+
+ul li:first-child {
+  color: red;
+}
+
+ul li:last-child {
+  color: blue;
+}
+
+ul li:nth-child(2) {
+  color: yellow;
+}
+
+span#upper {
+  font-size: 1.2rem;
+}
+
+span.inner {
+  font-size: 60%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  padding: 1rem;
+  border: 2px solid green;
+  gap: 1rem;
+}
+
+input {
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btns button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 5px;
+}
