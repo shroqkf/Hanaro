@@ -2,4 +2,7 @@ ttt
 ppp
 qqq
 br22
+<<<<<<< HEAD
 finished
+=======
+>>>>>>> 503e83c681e9ed3b6054bc49b8ffcb02fb9ed7b6
