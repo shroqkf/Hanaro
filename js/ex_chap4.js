@@ -70,12 +70,12 @@ function addPoints2(a, b) {
 
 // ex4 - ver3(실무용 정답)
 function addPoints3(...args) {
-  p = 10 ** 10;
+  p1 = 10 ** 10;
   let ret = 0;
   for (const n of args) {
-    ret += Math.trunc(n * p);
+    ret += Math.trunc(n * p1);
   }
-  ret = ret / p;
+  ret = ret / p1;
   console.log("🚀 addPoints3 ret:", ret);
   console.log(args.join(" + "), "=", ret);
 }
@@ -97,7 +97,7 @@ console.log("🚀 avg:", avg);
 // ex5 - 선생님 답안
 const prices1 = [10.34, "xxx", 5.678, null, 20.9, 1.005, 0, 15, undefined, 0.5];
 // null은 숫자 0
-const P = 10 * 15;
+const P = 10 ** 15;
 let sum1 = 0;
 let cnt = 0;
 for (const n of prices1) {
@@ -110,7 +110,7 @@ console.log("🚀 avg1:", avg1);
 
 // ex5 - toFixed 안쓰고 하기
 const prices2 = [10.34, "xxx", 5.678, null, 20.9, 1.005, 0, 19, undefined, 0.5];
-const P2 = 10 * 15;
+const P2 = 10 ** 15;
 const pointLength = 10 ** 2; // 소수점 2자리까지
 let sum2 = 0;
 let cnt2 = 0;
@@ -121,3 +121,24 @@ for (const n of prices2) {
 }
 const avg2 = Math.trunc(((sum2 / P2) * pointLength) / cnt2) / pointLength;
 console.log("🚀 avg2:", avg2);
+
+// bonus
+function subPoints(...args) {
+  calc(-1, ...args);
+}
+function addPoints(...args) {
+  calc(+1, ...args);
+}
+function calc(signFlag, ...args) {
+  pp = 10 ** 10;
+  let ret = 0;
+  for (const [i, n] of Object.entries(args)) {
+    console.log(i, n);
+    const signNum = i != 0 ? n * signFlag : n;
+    ret += Math.trunc(signNum * pp);
+  }
+  ret = ret / pp;
+  console.log(args.join(` ${signFlag > 0 ? "+" : "-"} `), "=", ret);
+}
+addPoints(22, 23);
+subPoints(0.45, 0.12);
