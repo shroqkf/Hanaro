@@ -94,3 +94,30 @@ const sum = validPrices.reduce((acc, cur) => acc + cur, 0);
 const avg = (sum / validPrices.length).toFixed(2);
 console.log("🚀 avg:", avg);
 
+// ex5 - 선생님 답안
+const prices1 = [10.34, "xxx", 5.678, null, 20.9, 1.005, 0, 15, undefined, 0.5];
+// null은 숫자 0
+const P = 10 * 15;
+let sum1 = 0;
+let cnt = 0;
+for (const n of prices1) {
+  if (n === null || isNaN(n)) continue;
+  cnt += 1;
+  sum1 += Math.trunc(n * P);
+}
+const avg1 = (sum1 / (cnt * P)).toFixed(2);
+console.log("🚀 avg1:", avg1);
+
+// ex5 - toFixed 안쓰고 하기
+const prices2 = [10.34, "xxx", 5.678, null, 20.9, 1.005, 0, 19, undefined, 0.5];
+const P2 = 10 * 15;
+const pointLength = 10 ** 2; // 소수점 2자리까지
+let sum2 = 0;
+let cnt2 = 0;
+for (const n of prices2) {
+  if (n === null || isNaN(n)) continue;
+  cnt2 += 1;
+  sum2 += Math.trunc(n * P2);
+}
+const avg2 = Math.trunc(((sum2 / P2) * pointLength) / cnt2) / pointLength;
+console.log("🚀 avg2:", avg2);
