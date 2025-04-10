@@ -33,27 +33,36 @@ console.log("🚀 maTco10:", maTco10);
 
 // // 1) Loop를 이용하여 작성하시오.
 const loopFibonacci = (n) => {
-  for (let i = n; i >= 0; i -= 1) {
-    if (n <= 1) return n;
-    return loopFibonacci(n - 2) + loopFibonacci(n - 1);
+  if (n <= 1) return 1;
+  let prev = 0;
+  let curr = 1;
+  for (let i = 2; i <= n; i += 1) {
+    // let t = prev;
+    // prev = curr;
+    // curr = t + curr;
+    [prev, curr] = [curr, prev + curr]; // destructuring
   }
+  return curr;
 };
 console.log("🚀 loopFibonacci(5):", loopFibonacci(5));
 
 // 2) 재귀함수만을 이용하여 작성하시오.
-function recurFibonacci(n) {
+const recurFibonacci = (n) => {
   if (n <= 1) return n;
   return recurFibonacci(n - 2) + recurFibonacci(n - 1);
-}
+};
 console.log("🚀 recurFibonacci(7):", recurFibonacci(7));
 
 // 3) memoized 함수를 이용하여 작성하시오.
-const memoizedTable = {};
-const memoFibonacci = (n) => {
-  if (n <= 1) return n;
-  return (
-    memoizedTable[n] ||
-    (memoizedTable[n] = memoFibonacci(n - 2) + memoFibonacci(n - 1))
-  );
+const memoized = (fn) => {
+  const cacheTable = {};
+  return (k) => {
+    return cacheTable[k] || (cacheTable[k] = fn(k));
+  };
 };
+
+const memoFibonacci = memoized((n) => {
+  if (n <= 1) return n;
+  return memoFibonacci(n - 2) + memoFibonacci(n - 1);
+});
 console.log("🚀 memoFibonacci(30):", memoFibonacci(30));
