@@ -7,7 +7,7 @@ const deleteArray = (array, startOrKey, endOrValue) => {
   if (typeof startOrKey === "string") {
     return array.filter((a) => a[startOrKey] !== endOrValue);
   } else {
-    return array.filter((_, i) => i < startOrKey || i > endOrValue);
+    return array.filter((_, i) => i < startOrKey || i >= endOrValue);
   }
 };
 
