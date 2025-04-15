@@ -17,17 +17,16 @@ const assert = require("assert");
 const range = (start, end, step = start > end ? -1 : 1) => {
   if (step === 0 || start === end) return [start];
   if ((start - end) * step > 0) return [];
-
-  if (end === undefined && start === 0) return [0];
+  // if (end === undefined && start === 0) return [0];
 
   const t = start;
-  end = end ?? (start > 0 ? ((start = 1), t) : -1);
+  end = end ?? (start > 0 ? ((start = 1), t) : start < 0 ? -1 : 0);
 
   const results = [];
-
   for (let i = start; start > end ? i >= end : i <= end; i += step) {
     results.push(i);
   }
+
   return results;
 };
 
