@@ -87,7 +87,7 @@ class Subway {
   }
 
   toString() {
-    return `${this.#start}->${this.#end} (This is stop: ${
+    return `${this.#start}->${this.#end} (This stop is: ${
       LINE2[this.#currIdx - 1]
     })`;
   }
