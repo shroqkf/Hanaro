@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <style>
+      .border {
+        border: 2px solid red;
+      }
+
+      .m-5 {
+        margin: 5rem;
+      }
+
+      .p-2 {
+        padding: 2rem;
+      }
+
+      .p-5 {
+        padding: 5rem;
+      }
+    </style>
+  </head>
+  <body style="margin-left: 5rem">
+    <h1>Title</h1>
+    <form name="frm" id="frm" class="border p-5">
+      <div id="dv" class="border p-2">
+        <button id="btn" type="submit">Submit</button>
+      </div>
+    </form>
+    <script>
+      const frm = document.getElementsByName("frm")[0];
+      const div = document.getElementsByTagName("div")[0];
+      const btn = document.getElementById("btn");
+
+      [frm, div, btn].forEach((dom) => {
+        dom.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          console.log(dom, e.target, e.currentTarget);
+          dom.classList.toggle("border");
+        });
+      });
+      div.appendChild(document.createElement("input"));
+    </script>
+  </body>
+</html>
