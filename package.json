@@ -4,6 +4,7 @@
     "npx": "^10.2.2"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "nodemon": "^3.1.9"
   }
 }
