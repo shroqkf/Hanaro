@@ -94,3 +94,23 @@ function ntfn(this: void, X: string) {
   console.log("tfn>>", X);
 }
 ntfn("Y");
+
+let u: Object = { id: 1 };
+u = {};
+u = [];
+u = function () {};
+
+let u2: {};
+u2 = {
+  toString() {
+    return 1;
+  },
+};
+
+let u3: object;
+u3 = {};
+
+const t = setTimeout(console.log, 1000, "1");
+
+const a: number[] = [];
+a[100]?.toFixed(); // noUncheckedIndexedAccess
