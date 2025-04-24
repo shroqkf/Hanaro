@@ -59,6 +59,14 @@ type T3 = 1 | 2 | 3;
 type ConstCart = typeof constCart;
 type T4 = ConstCart[keyof ConstCart];
 
+const xCart = { x: 1, y: "str" } as const;
+type XCart = typeof xCart;
+type T5 = XCart[keyof XCart];
+
+type ValueOf<T> = T[keyof T];
+type T44 = ValueOf<typeof constCart>;
+type T55 = ValueOf<typeof xCart>;
+
 console.log("------------------------------------------------------------");
 
 // ex3 - 다음에서 '가', '나', '다' 어떤 걸 throw 해도 에러 메시지를 출력하도록 (라) 부분을 수정하시오. (type predicate)
