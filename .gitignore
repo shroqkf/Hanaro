@@ -3,3 +3,4 @@ dist
 ttt
 *.local
 c.txt
+/sql/mysql
