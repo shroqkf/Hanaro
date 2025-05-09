@@ -1,61 +1,34 @@
-import { useState } from "react";
+import { useState, version } from "react";
 import "./App.css";
 
-// const StatePool = {};
-// function useState(initValue) {
-//   if (!StatePool._x) {
-//     StatePool._x = initValue;
-//   }
+function MyButton({ onClick }) {
+  return <button onClick={onClick}>MyButton</button>;
+}
 
-//   const obj = {
-//     get x() {
-//       console.log('🚀 getx:', StatePool._x);
-//       return StatePool._x;
-//     },
-//     setX(newValueOrFn) {
-//       console.log('🚀 setX:', typeof newValueOrFn);
-//       if (typeof newValueOrFn === 'function') {
-//         StatePool._x = newValueOrFn(StatePool._x);
-//         console.log('🚀 setx:', StatePool._x);
-//       } else {
-//         StatePool._x = newValueOrFn;
-//       }
+const HONG = { name: "Hong", hobbies: ["Bike", "Tennis"] };
 
-//       React.rerender();
-//       App();
-//     },
-//   };
-
-//   return [obj.x, obj.setX];
-// }
+const AboutMe = ({ myinfo }) => {
+  const { name, hobbies } = myinfo;
+  return (
+    <>
+      <h1>{name}</h1>
+      <ul style={{ listStyle: "none" }}>
+        {hobbies.map((hobby) => (
+          <li key={hobby}>{hobby}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
 
 function App() {
-  const [count, setCount] = useState(1);
-  let x = 100;
-  console.log("*****************", count, x);
-  const str = `${x}`;
-  // console.log("🚀 str:", str, count, StatePool);
-  console.log("🚀 str:", str, count);
-
-  const plusCount = () => {
-    console.log("🚀 x1:", x, count);
-    setCount((count) => count + 1);
-    x = x + 1;
-    console.log("🚀 x2:", x, count);
-  };
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
-      <h1>Vite React {x}</h1>
-      <div className="card">
-        <button onClick={plusCount}>count is {count}</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Vite + React {version} </h1>
+      <MyButton onClick={() => setLoggedIn(!isLoggedIn)} />
+      {isLoggedIn ? <AboutMe myinfo={HONG} /> : <h3>Login Form</h3>}
     </>
   );
 }
