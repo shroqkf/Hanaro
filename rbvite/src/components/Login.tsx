@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, type FormEvent } from "react";
 import type { LoginFn } from "../App";
 
 type Props = {
@@ -6,30 +6,39 @@ type Props = {
 };
 
 export default function Login({ login }: Props) {
-  const [id, setId] = useState(0);
-  const [name, setName] = useState("");
+  const idRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
 
-  const makeLogin = () => {
-    if (id == null || isNaN(id) || !name) {
-      alert("아이디와 이름을 입력해주세요");
+  const makeLogin = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const id = Number(idRef.current?.value);
+    const name = nameRef.current?.value;
+
+    if (id == null || isNaN(id)) {
+      alert("아이디를 입력해주세요");
+      idRef.current?.focus();
+      return;
+    } else if (!name) {
+      alert("이름을 입력해주세요");
+      nameRef.current?.focus();
       return;
     }
     login(id, name);
   };
 
-  //   const submitHandler = () => {};
-
   return (
-    <>
+    <form onSubmit={makeLogin}>
       <div>
         Login ID:
-        <input type="number" onChange={(e) => setId(+e.currentTarget.value)} />
+        <input ref={idRef} type="number" />
       </div>
       <div>
         Login Name:
-        <input type="text" onChange={(e) => setName(e.currentTarget.value)} />
+        <input ref={nameRef} type="text" />
       </div>
-      <button onClick={makeLogin}>Login</button>
-    </>
+      <button type="reset">Cancel</button>
+      <button type="submit">Login</button>
+    </form>
   );
 }

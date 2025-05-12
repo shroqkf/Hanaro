@@ -5,7 +5,7 @@ import My from "./components/My";
 
 export type LoginFn = (id: number, name: string) => void;
 export type LoginUser = { id: number; name: string };
-type Cart = { id: number; name: string; price: number };
+export type Cart = { id: number; name: string; price: number };
 export type Session = {
   loginUser: LoginUser | null;
   cart: Cart[];
@@ -41,6 +41,20 @@ function App() {
     });
   };
 
+  const addItem = (name: string, price: number) => {
+    const id = Math.max(...session.cart.map((item) => item.id), 0) + 1;
+    setSession({ ...session, cart: [...session.cart, { id, name, price }] });
+  };
+
+  const editItem = (workingItem: Cart) => {
+    setSession({
+      ...session,
+      cart: session.cart.map((item) =>
+        item.id == workingItem.id ? workingItem : item
+      ),
+    });
+  };
+
   return (
     <>
       <h2>count: {count}</h2>
@@ -50,6 +64,8 @@ function App() {
         login={login}
         logout={logout}
         removeItem={removeItem}
+        addItem={addItem}
+        editItem={editItem}
       />
       <Hello name={"홍길동"} age={33} plusCount={plusCount}>
         반갑습니다!

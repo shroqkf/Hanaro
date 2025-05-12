@@ -54,14 +54,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-ul {
-  list-style: none;
-}
-
-.border {
-  border: 1px solid red;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -73,4 +65,22 @@ ul {
   button {
     background-color: #f9f9f9;
   }
+}
+
+ul {
+  list-style: none;
+}
+
+.border {
+  border: 1px solid red;
+}
+
+.p-sm {
+  padding: 0 0.1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.w-sm {
+  width: 5rem;
 }
