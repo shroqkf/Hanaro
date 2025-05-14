@@ -1,5 +1,13 @@
-import { useImperativeHandle, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import { useSession } from "../contexts/session/useSession";
+import { useCounter } from "../contexts/counter/useCounter";
+import { useInterval, useTimeout } from "../hooks/useTimer";
 
 export type LoginHandler = {
   str: string;
@@ -11,6 +19,7 @@ export type LoginHandler = {
 
 export default function Login() {
   const { login, loginHandlerRef } = useSession();
+  const { plusCount, minusCount } = useCounter();
   const [x, setX] = useState(0);
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -53,6 +62,26 @@ export default function Login() {
 
     login(id, name);
   };
+
+  useEffect(() => {
+    alert("반값습니다! 로그인해주세요.");
+    return () => {
+      alert("로그인 성공!");
+    };
+  }, []);
+
+  // Login 컴포넌트에 들어가면 count(CounterContext)를 1 증가시키고,
+  // 로그인 완료 후 1 감소하도록 작성하시오.
+  useEffect(() => {
+    plusCount();
+    return minusCount;
+  }, [minusCount, plusCount]);
+
+  useTimeout(console.log, 1000, "Hong", x);
+  useTimeout(console.log, 1000, "Kim", 99);
+
+  useInterval(setX, 1000, x + 1);
+  useInterval(console.log, 1000, x);
 
   return (
     <form onSubmit={makeLogin}>
