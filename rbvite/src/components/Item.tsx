@@ -1,15 +1,15 @@
 import { useRef, useState, type FormEvent } from "react";
-import type { Cart } from "../App";
+import type { Cart } from "../contexts/session/SessionContext";
+import { useSession } from "../contexts/session/useSession";
 
 type Props = {
   item: Cart;
-  removeItem: (id: number) => void;
-  addItem: (name: string, price: number) => void;
-  editItem: (item: Cart) => void;
+
   toggleAdding?: () => void;
 };
 
-const Item = ({ item, removeItem, addItem, editItem, toggleAdding }: Props) => {
+const Item = ({ item, toggleAdding }: Props) => {
+  const { removeItem, editItem, addItem } = useSession();
   const itemNameRef = useRef<HTMLInputElement>(null);
   const itemPriceRef = useRef<HTMLInputElement>(null);
   const [isEditing, setEditing] = useState(false);

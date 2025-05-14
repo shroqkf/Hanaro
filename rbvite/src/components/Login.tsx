@@ -1,11 +1,5 @@
-import {
-  useImperativeHandle,
-  useRef,
-  useState,
-  type FormEvent,
-  type RefObject,
-} from "react";
-import type { LoginFn } from "../App";
+import { useImperativeHandle, useRef, useState, type FormEvent } from "react";
+import { useSession } from "../contexts/session/useSession";
 
 export type LoginHandler = {
   str: string;
@@ -15,12 +9,8 @@ export type LoginHandler = {
   validate: () => boolean;
 };
 
-type Props = {
-  login: LoginFn;
-  loginHandlerRef: RefObject<LoginHandler | null>;
-};
-
-export default function Login({ login, loginHandlerRef }: Props) {
+export default function Login() {
+  const { login, loginHandlerRef } = useSession();
   const [x, setX] = useState(0);
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
