@@ -63,13 +63,6 @@ export default function Login() {
     login(id, name);
   };
 
-  useEffect(() => {
-    alert("반값습니다! 로그인해주세요.");
-    return () => {
-      alert("로그인 성공!");
-    };
-  }, []);
-
   // Login 컴포넌트에 들어가면 count(CounterContext)를 1 증가시키고,
   // 로그인 완료 후 1 감소하도록 작성하시오.
   useEffect(() => {
@@ -77,12 +70,15 @@ export default function Login() {
     return minusCount;
   }, [minusCount, plusCount]);
 
-  useTimeout(console.log, 1000, "Hong", x);
-  useTimeout(console.log, 1000, "Kim", 99);
+  // useTimeout(console.log, 1000, "Hong", x);
+  // useTimeout(console.log, 1000, "Kim", 99);
 
-  useInterval(setX, 1000, x + 1);
-  useInterval(console.log, 1000, x);
-
+  // rerender될 때마다 setX 이용해서 x 값이 증가함
+  const { reset, clear } = useInterval(() => {
+    setX((x) => x + 1);
+  }, 1000);
+  useTimeout(reset, 2000);
+  useTimeout(clear, 3000);
   return (
     <form onSubmit={makeLogin}>
       <div>
