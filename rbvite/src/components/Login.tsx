@@ -72,25 +72,31 @@ export default function Login() {
 
   // useTimeout(console.log, 1000, "Hong", x);
   // useTimeout(console.log, 1000, "Kim", 99);
-
+  console.log("xxxxxx>>", x);
   // rerender될 때마다 setX 이용해서 x 값이 증가함
   const { reset, clear } = useInterval(() => {
     setX((x) => x + 1);
   }, 1000);
   useTimeout(reset, 2000);
   useTimeout(clear, 3000);
+
+  useEffect(() => idRef.current?.focus(), []);
+
   return (
-    <form onSubmit={makeLogin}>
-      <div>
-        LoginID({x}):
-        <input ref={idRef} type="number" />
-      </div>
-      <div>
-        LoginName:
-        <input type="text" ref={nameRef} />
-      </div>
-      <button type="reset">Cancel</button>
-      <button type="submit">Login</button>
-    </form>
+    <>
+      <form onSubmit={makeLogin}>
+        <div>
+          LoginID({x}):
+          <input ref={idRef} type="number" />
+        </div>
+        <div>
+          LoginName:
+          <input type="text" ref={nameRef} />
+        </div>
+        <button type="reset">Cancel</button>
+        <button type="submit">Login</button>
+      </form>
+      <button onClick={() => setX((x) => x + 1)}>Set X</button>
+    </>
   );
 }

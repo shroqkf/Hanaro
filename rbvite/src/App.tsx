@@ -26,10 +26,10 @@ function App() {
         <My logoutButtonRef={logoutButtonRef} />
       </SessionProvider>
       <Hello
-        name={"홍길동"}
-        age={33}
+        id={count + 1}
         helloButtonRef={helloButtonRef}
         ref={helloHandlerRef}
+        name={""}
       >
         반갑습니다!
       </Hello>
