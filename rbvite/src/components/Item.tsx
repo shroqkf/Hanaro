@@ -1,14 +1,14 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { Cart } from "../contexts/session/SessionContext";
 import { useSession } from "../contexts/session/useSession";
 
 type Props = {
   item: Cart;
-
   toggleAdding?: () => void;
+  addExpectPrice: (price: number) => void;
 };
 
-const Item = ({ item, toggleAdding }: Props) => {
+const Item = ({ item, toggleAdding, addExpectPrice }: Props) => {
   const { removeItem, editItem, addItem } = useSession();
   const itemNameRef = useRef<HTMLInputElement>(null);
   const itemPriceRef = useRef<HTMLInputElement>(null);
@@ -43,6 +43,8 @@ const Item = ({ item, toggleAdding }: Props) => {
     setEditing(false);
     setDirty(false);
     if (toggleAdding) toggleAdding();
+    if (!item.id && itemPriceRef.current)
+      addExpectPrice(-itemPriceRef.current.value);
   };
 
   const checkDirty = () => {
@@ -51,6 +53,12 @@ const Item = ({ item, toggleAdding }: Props) => {
         Number(itemPriceRef.current?.value) !== item.price
     );
   };
+
+  useEffect(() => {
+    if (!item.id) addExpectPrice(item.price);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item.price]);
+
   return (
     <>
       {isEditing ? (
@@ -60,12 +68,19 @@ const Item = ({ item, toggleAdding }: Props) => {
             ref={itemNameRef}
             className="w-sm"
             placeholder="상품명.."
+            onChange={checkDirty}
           />
           <input
             type="number"
             ref={itemPriceRef}
             placeholder="금액..."
             className="w-sm"
+            onChange={(evt) => {
+              checkDirty();
+              if (!item.id) {
+                addExpectPrice(item.id ? 0 : Number(evt.target.value));
+              }
+            }}
           />
           <button type="reset" className="p-sm">
             취소

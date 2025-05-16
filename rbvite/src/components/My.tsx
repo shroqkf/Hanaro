@@ -1,9 +1,15 @@
 import Login from "./Login";
 import Profile from "./Profile";
 import Item from "./Item";
-import { useEffect, useMemo, useState, type RefObject } from "react";
+import {
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+  type RefObject,
+} from "react";
 import { useSession } from "../contexts/session/useSession";
-import { useToggle } from "../hooks/useToggle";
+// import { useToggle } from "../hooks/useToggle";
 
 type Props = {
   logoutButtonRef: RefObject<HTMLButtonElement | null>;
@@ -22,7 +28,10 @@ export default function My({ logoutButtonRef }: Props) {
   } = useSession();
   // const [isAdding, setAdding] = useState(false);
   // const toggleAdding = () => setAdding(!isAdding);
-  const [isAdding, toggleAdding] = useToggle();
+
+  // const [isAdding, toggleAdding] = useToggle();
+  const [isAdding, toggleAdding] = useReducer((pre) => !pre, false);
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState(null);
 
@@ -30,6 +39,12 @@ export default function My({ logoutButtonRef }: Props) {
     () => cart.reduce((acc, item) => acc + item.price, 0),
     [cart]
   );
+
+  const [totalExpectPrice, addExpectPrice] = useReducer(
+    (prePrice, newPrice) => totalPrice + newPrice + prePrice * 0,
+    totalPrice
+  );
+
   useEffect(() => {
     // (async function () {
     //   const res = await fetch(POSTS_URL);
@@ -55,10 +70,11 @@ export default function My({ logoutButtonRef }: Props) {
 
       <div>
         <h3>Total: {totalPrice.toLocaleString()}</h3>
+        <h4>Expect: {totalExpectPrice.toLocaleString()}</h4>
         <ul>
           {cart.map((item) => (
             <li key={item.id}>
-              <Item item={item} />
+              <Item item={item} addExpectPrice={addExpectPrice} />
             </li>
           ))}
           {isAdding ? (
@@ -66,6 +82,7 @@ export default function My({ logoutButtonRef }: Props) {
               <Item
                 item={{ id: 0, name: "", price: 3000 }}
                 toggleAdding={toggleAdding}
+                addExpectPrice={addExpectPrice}
               />
             </li>
           ) : (
