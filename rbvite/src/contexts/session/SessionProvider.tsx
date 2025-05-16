@@ -1,6 +1,11 @@
 import type { LoginHandler } from "../../components/Login";
-import { SessionContext, type Cart, type Session } from "./SessionContext";
-import { useRef, useState, type PropsWithChildren } from "react";
+import {
+  SessionContext,
+  type Cart,
+  type LoginUser,
+  type Session,
+} from "./SessionContext";
+import { useCallback, useReducer, useRef, type PropsWithChildren } from "react";
 
 const SampleSession: Session = {
   // loginUser: null,
@@ -12,44 +17,68 @@ const SampleSession: Session = {
   ],
 };
 
-export const SessionProvider = ({ children }: PropsWithChildren) => {
-  const [session, setSession] = useState<Session>(SampleSession);
+type Action =
+  | { type: "LOGIN"; payload: LoginUser }
+  | { type: "LOGOUT"; payload: null }
+  | { type: "REMOVE_ITEM"; payload: number }
+  | { type: "ADD_ITEM"; payload: Cart }
+  | { type: "EDIT_ITEM"; payload: Cart };
 
-  const login = (id: number, name: string) => {
+const reducer = (session: Session, { type, payload }: Action) => {
+  switch (type) {
+    case "LOGIN":
+    case "LOGOUT":
+      return { ...session, loginUser: payload };
+    case "REMOVE_ITEM":
+      return {
+        ...session,
+        cart: session.cart.filter((item) => item.id !== payload),
+      };
+    case "ADD_ITEM":
+      return {
+        ...session,
+        cart: [...session.cart, payload],
+      };
+    case "EDIT_ITEM":
+      return {
+        ...session,
+        cart: session.cart.filter((item) =>
+          item.id === payload.id ? payload : item
+        ),
+      };
+    default:
+      return session;
+  }
+};
+
+export const SessionProvider = ({ children }: PropsWithChildren) => {
+  const [session, dispatch] = useReducer(reducer, SampleSession);
+
+  const loginHandlerRef = useRef<LoginHandler>(null);
+
+  const login = useCallback((id: number, name: string) => {
     if (!loginHandlerRef.current) return;
     const { getName, validate, str } = loginHandlerRef.current;
     console.log("login>>", getName(), str);
-    if (validate()) setSession({ ...session, loginUser: { id, name } });
-  };
+    if (validate()) dispatch({ type: "LOGIN", payload: { id, name } });
+  }, []);
 
   const loginout = () => {
-    // session.loginUser = null; // non-pure function!
-    setSession({ ...session, loginUser: null });
+    dispatch({ type: "LOGOUT", payload: null });
   };
 
-  const removeItem = (id: number) => {
-    setSession({
-      ...session,
-      cart: session.cart.filter((item) => item.id !== id),
-    });
-  };
+  const removeItem = useCallback((id: number) => {
+    dispatch({ type: "REMOVE_ITEM", payload: id });
+  }, []);
 
   const addItem = (name: string, price: number) => {
     const id = Math.max(...session.cart.map((item) => item.id), 0) + 1;
-    console.log("🚀 name:", id, name, price);
-    setSession({ ...session, cart: [...session.cart, { id, name, price }] });
+    dispatch({ type: "ADD_ITEM", payload: { id, name, price } });
   };
 
   const editItem = (workingItem: Cart) => {
-    setSession({
-      ...session,
-      cart: session.cart.map((item) =>
-        item.id === workingItem.id ? workingItem : item
-      ),
-    });
+    dispatch({ type: "EDIT_ITEM", payload: workingItem });
   };
-
-  const loginHandlerRef = useRef<LoginHandler>(null);
 
   return (
     // value는 항상 객체 타입
