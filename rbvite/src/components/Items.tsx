@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useSession } from '../contexts/session/SessionContext';
 import Item from './Item';
-import ColorTitle from './ColorTitle';
+import ColorTitle from './atoms/ColorTitle';
 import SlowList from './SlowList';
 import { Link, useSearchParams } from 'react-router-dom';
 
