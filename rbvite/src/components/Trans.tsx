@@ -1,11 +1,11 @@
-import { use, useActionState, useEffect, useOptimistic, useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useActionState, useOptimistic, useState } from "react";
+import { useFormStatus } from "react-dom";
 type User = { id: number; name: string };
 
 async function searchUser(userId: string) {
-  return fetch<Comp>(
+  return fetch(
     `https://jsonplaceholder.typicode.com/users/${userId.at(-1)}`
-  ).then(res => res.json());
+  ).then((res) => res.json());
 }
 // async function searchUser(userId: string) {
 //   return new Promise(resolve => {
@@ -16,24 +16,24 @@ async function searchUser(userId: string) {
 type Msg = { text: string; sending?: boolean };
 
 export default function Trans() {
-  const [str, setStr] = useState('');
+  const [str, setStr] = useState("");
   const [list, search, isPending] = useActionState(
     async (preList: User[], formData: FormData) => {
-      const value = formData.get('value')?.toString() ?? '';
+      const value = formData.get("value")?.toString() ?? "";
       setStr(value);
       setOptimisticMessage(value);
       const data = (await searchUser(value)) as User;
-      console.log('🚀 data:', data, preList);
+      console.log("🚀 data:", data, preList);
       return [data];
     },
     []
   );
 
   const [optimisticMessage, setOptimisticMessage] = useOptimistic(
-    { text: '', sending: false },
+    { text: "", sending: false },
     (currState: Msg, text: string) => {
-      console.log('🚀 currState:', currState);
-      console.log('🚀 optimisticValue:', text);
+      console.log("🚀 currState:", currState);
+      console.log("🚀 optimisticValue:", text);
       return { text, sending: true };
     }
   );
@@ -42,11 +42,11 @@ export default function Trans() {
     <>
       <h3>{isPending ? <Spinner /> : str}</h3>
       <h4>
-        {optimisticMessage.sending && 'Search...'}
-        <strong style={{ color: 'red' }}>{optimisticMessage.text}</strong>
+        {optimisticMessage.sending && "Search..."}
+        <strong style={{ color: "red" }}>{optimisticMessage.text}</strong>
       </h4>
       <form action={search}>
-        <input type='text' name='value' placeholder='userId...' />
+        <input type="text" name="value" placeholder="userId..." />
         <DesignedButton />
       </form>
       <ul>
