@@ -69,5 +69,5 @@ function DesignedButton() {
 }
 
 function Spinner() {
-  return <strong>Pending...</strong>;
+  return <strong>Pending.....</strong>;
 }
