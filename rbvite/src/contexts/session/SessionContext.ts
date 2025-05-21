@@ -1,12 +1,10 @@
-import { createContext, createRef, type RefObject } from "react";
-import type { LoginHandler } from "../../components/Login";
+import { createContext, createRef, use, type RefObject } from 'react';
+import type { LoginHandler } from '../../components/Login';
 
 export type LoginUser = {
   id: number;
   name: string;
 };
-
-export type LoginFn = (id: number, name: string) => void;
 
 export type Cart = {
   id: number;
@@ -21,20 +19,22 @@ export type Session = {
 
 type SessionContextProps = {
   session: Session;
-  login: LoginFn;
-  loginout: () => void;
-  removeItem: (id: number) => void;
+  login: (id: number, name: string) => void;
+  logout: () => void;
   addItem: (name: string, price: number) => void;
+  removeItem: (id: number) => void;
   editItem: (item: Cart) => void;
-  loginHandlerRef: RefObject<LoginHandler | null>;
+  loginHandler: RefObject<LoginHandler | null>;
 };
 
 export const SessionContext = createContext<SessionContextProps>({
-  session: { loginUser: { id: 0, name: "" }, cart: [] },
-  login: () => {},
-  loginout: () => {},
-  removeItem: () => {},
-  addItem: () => {},
-  editItem: () => {},
-  loginHandlerRef: createRef<LoginHandler>(),
+  session: { loginUser: null, cart: [] },
+  login() {},
+  logout() {},
+  addItem() {},
+  removeItem() {},
+  editItem() {},
+  loginHandler: createRef<LoginHandler>(),
 });
+
+export const useSession = () => use(SessionContext);

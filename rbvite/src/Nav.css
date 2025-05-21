@@ -1,0 +1,19 @@
+ul.nav {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  top: 0;
+  margin-bottom: 3rem;
+  padding: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+ul.nav > li > a.active {
+  text-decoration: underline;
+}
+
+a:hover {
+  color: blue;
+  text-decoration: underline;
+}

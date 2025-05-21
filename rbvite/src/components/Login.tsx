@@ -4,10 +4,10 @@ import {
   useRef,
   useState,
   type FormEvent,
-} from "react";
-import { useSession } from "../contexts/session/useSession";
-import { useCounter } from "../contexts/counter/useCounter";
-import { useInterval, useTimeout } from "../hooks/useTimer";
+} from 'react';
+import { useSession } from '../contexts/session/SessionContext';
+import { useCounter } from '../contexts/counter/useCounter';
+import { useInterval, useTimeout } from '../hooks/useTimer';
 
 export type LoginHandler = {
   str: string;
@@ -17,15 +17,15 @@ export type LoginHandler = {
   validate: () => boolean;
 };
 
-export default function Login() {
-  const { login, loginHandlerRef } = useSession();
+export default function Login({ title = 'LOGIN' }: { title?: string }) {
+  const { login, loginHandler: loginHandlerRef } = useSession();
   const { plusCount, minusCount } = useCounter();
   const [x, setX] = useState(0);
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
   const loginHandler: LoginHandler = {
-    str: "STRING",
+    str: 'STRING',
     makeX(n: number) {
       setX(n);
     },
@@ -33,18 +33,18 @@ export default function Login() {
       idRef.current?.focus();
     },
     getName() {
-      return nameRef.current?.value || "";
+      return nameRef.current?.value || '';
     },
     validate() {
       const id = Number(idRef.current?.value);
       const name = nameRef.current?.value;
 
       if (!id || isNaN(id)) {
-        alert("Input the user id!");
+        alert('Input the user id!');
         idRef.current?.focus();
         return false;
       } else if (!name) {
-        alert("Input the user name!");
+        alert('Input the user name!');
         nameRef.current?.focus();
         return false;
       }
@@ -58,45 +58,52 @@ export default function Login() {
   const makeLogin = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const id = Number(idRef.current?.value);
-    const name = nameRef.current?.value ?? "";
+    const name = nameRef.current?.value ?? '';
 
     login(id, name);
   };
 
-  // Login 컴포넌트에 들어가면 count(CounterContext)를 1 증가시키고,
-  // 로그인 완료 후 1 감소하도록 작성하시오.
   useEffect(() => {
     plusCount();
     return minusCount;
-  }, [minusCount, plusCount]);
+    // return () => minusCount();
+  }, [plusCount, minusCount]);
 
-  // useTimeout(console.log, 1000, "Hong", x);
-  // useTimeout(console.log, 1000, "Kim", 99);
-  console.log("xxxxxx>>", x);
-  // rerender될 때마다 setX 이용해서 x 값이 증가함
-  const { reset, clear } = useInterval(() => {
-    setX((x) => x + 1);
-  }, 1000);
+  // useTimeout(console.log, 1000, 'Hong', x);
+  // useTimeout(console.log, 1000, 'Kim', 99);
+
+  // const f = useCallback(() => {
+  //   setX(x => x + 1);
+  // }, []);
+
+  // interval도 만들었다면,
+  console.log('xxxxxx>>', x);
+  const { reset, clear } = useInterval(() => setX(x => x + 1), 1000);
+  // reset(); // Danger!! call every render
   useTimeout(reset, 2000);
-  useTimeout(clear, 3000);
+  useTimeout(clear, 5000);
 
   useEffect(() => idRef.current?.focus(), []);
 
+  const tit = `MyBlob::${title}`;
+
   return (
     <>
+      <title>{tit}</title>
+      <meta name='Author' content={tit} />
       <form onSubmit={makeLogin}>
         <div>
           LoginID({x}):
-          <input ref={idRef} type="number" />
+          <input ref={idRef} type='number' />
         </div>
         <div>
           LoginName:
-          <input type="text" ref={nameRef} />
+          <input type='text' ref={nameRef} />
         </div>
-        <button type="reset">Cancel</button>
-        <button type="submit">Login</button>
+        <button type='reset'>Cancel</button>
+        <button type='submit'>Login</button>
       </form>
-      <button onClick={() => setX((x) => x + 1)}>Set X</button>
+      <button onClick={() => setX(x => x + 1)}>Set X</button>
     </>
   );
 }
