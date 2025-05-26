@@ -29,7 +29,7 @@ export function MenuDropDown() {
       <DropdownMenuTrigger asChild>
         <Button variant='outline'>
           {menu?.title}
-          {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}
+          {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
