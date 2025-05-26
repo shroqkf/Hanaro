@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { ThemeProvider } from './components/theme-provider';
+import { ModeToggle } from './components/ui/mode-toggle';
 import './globals.css';
 
 const geistSans = Geist({
@@ -27,10 +30,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased m-5`}
       >
-        <h1>Nav</h1>
-        <div>{children}</div>
-        <hr />
-        <h2>Footer</h2>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className='flex gap-3'>
+            Root
+            <Link href='/hello'>Hello</Link>
+            <Link href='/hi'>Hi</Link>
+            <Link href='/hi/night'>Hi Night</Link>
+            <Link href='/parallel'>Parallel</Link>
+            <Link href='/intercept'>Intercept</Link>
+            <Link href='/photos'>Photos</Link>
+            <ModeToggle />
+          </div>
+          <div>{children}</div>
+          <hr />
+          <h2>Footer</h2>
+        </ThemeProvider>
       </body>
     </html>
   );
