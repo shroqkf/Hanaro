@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { ThemeProvider } from './components/theme-provider';
-import { ModeToggle } from './components/ui/mode-toggle';
+import { ThemeProvider } from '../components/theme-provider';
+import { ModeToggle } from '../components/ui/mode-toggle';
 import './globals.css';
 
 const geistSans = Geist({
@@ -44,6 +44,7 @@ export default function RootLayout({
             <Link href='/parallel'>Parallel</Link>
             <Link href='/intercept'>Intercept</Link>
             <Link href='/photos'>Photos</Link>
+            <Link href='/board'>Boards</Link>
             <ModeToggle />
           </div>
           <div>{children}</div>
