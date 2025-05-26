@@ -20,7 +20,7 @@ export default function Board() {
       <section className='flex justify-evenly mt-4'>
         <Button>취소</Button>
         <Button variant={'destructive'}>삭제</Button>
-        <Button variant={'default'}>저장</Button>
+        <Button variant={'secondary'}>저장</Button>
       </section>
     </>
   );
