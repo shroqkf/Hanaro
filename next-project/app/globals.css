@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+.button {
+  border: 1px solid gray;
+  padding: 0.2rem;
+  margin: 0.2rem;
+}
+button:hover {
+  cursor: pointer;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
