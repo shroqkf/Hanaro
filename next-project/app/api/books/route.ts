@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { books } from './bookdata';
 
-// api/books?q=123 : 책 제목이 123인 책 데이터 가져오기
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const q = searchParams.get('q');
@@ -9,14 +8,11 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(results);
 }
 
-// http://localhost:3000/api/books 결과
-// [{"id":1,"title":"1st book","writer":"hong"},{"id":2,"title":"2nd book","writer":"kim","msdn":"1234-1232-4324"},{"id":3,"title":"3rd book","writer":"lee"}]
-
-// http://localhost:3000/api/books?q=1 결과
-// [
-//    {
-//      "id": 1,
-//      "title": "1st book",
-//      "writer": "hong"
-//    }
-// ]
+export async function POST(req: NextRequest) {
+  // const { title, writer } = await req.json();
+  const body = await req.json();
+  const id = Math.max(...books.map(({ id }) => id), 0) + 1;
+  const newBook = { id, ...body };
+  books.push(newBook);
+  return NextResponse.json(body);
+}
