@@ -15,15 +15,15 @@ content-type: application/json
   "writer": "Jade"
 }
 
-### get one
+### get one book
 GET {{api}}/books/1
 
-### edit one
+### edit one book
 PATCH {{api}}/books/1
 
 {
   "title": "New Title",
 }
 
-### delete one
+### delete one book
 DELETE {{api}}/books/1

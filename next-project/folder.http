@@ -1,0 +1,59 @@
+@api = http://localhost:3000/api
+
+### folder list
+GET {{api}}/folders HTTP/1.1
+
+### folder list search
+GET {{api}}/folders?q=공지
+
+### add folder
+POST {{api}}/folders
+Content-Type: application/json
+
+{
+    "title": "수다방"
+}
+
+### get one folder
+GET {{api}}/folders/1
+
+### edit one folder
+PATCH {{api}}/folders/1
+
+{
+  "title": "New Title"
+}
+
+### delete one folder
+DELETE {{api}}/folders/2
+
+### post list
+GET {{api}}/folders/1/posts HTTP/1.1
+
+### post list search
+GET {{api}}/folders/1/posts?q=공지1
+
+### add post
+POST {{api}}/folders/1/posts
+Content-Type: application/json
+
+{
+    "title": "새로운 공지",
+    "writer": "홍길동",
+    "content": "새로운 내용"
+}
+
+### get one post
+GET {{api}}/folders/1/posts/2
+
+### edit one post
+PATCH {{api}}/folders/1/posts/3
+
+{
+  "title": "New Title",
+  "writer": "New Hong",
+  "content": "New 내용..."
+}
+
+### delete one post
+DELETE {{api}}/folders/1/posts/3
