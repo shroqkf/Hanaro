@@ -1,33 +1,40 @@
 import { use } from 'react';
 
+type Todo = { id: number; title: string };
+
+// export const dynamic = 'force-static';
 export const revalidate = 10;
 export const dynamicParams = false;
 
-type Todo = {
-  id: number;
-  title: string;
-};
-type Props = {
-  params: Promise<{ todoId: string }>;
+const getTodo = async (todoId: string) => {
+  const data = (await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${todoId}`
+  ).then((res) => res.json())) as Todo;
+
+  return data;
 };
 
-async function getTodo(id: string) {
-  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then((res) =>
-    res.json()
-  );
-}
+type Params = {
+  params: Promise<{ todoId: string }>;
+};
 
 const TODOS = ['1', '100'];
 export const generateStaticParams = () => TODOS.map((todoId) => ({ todoId }));
 
-export default function TodoPage({ params }: Props) {
+export async function generateMetadata({ params }: Params) {
+  const { todoId } = await params;
+  const { title } = await getTodo(todoId);
+  return { title };
+}
+
+export default function TodoPage({ params }: Params) {
   const { todoId } = use(params);
-  console.log('🚀 todoId:', todoId);
-  const { id, title } = use(getTodo(todoId)) as Todo;
+  const { id, title } = use(getTodo(todoId));
+
   return (
     <>
-      <h1>Todo Page: {todoId}</h1>
-      {id}. {title}
+      <h1 className='text-2xl'>Todo - {id}</h1>
+      {title}
     </>
   );
 }
