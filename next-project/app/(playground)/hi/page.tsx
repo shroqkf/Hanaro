@@ -1,3 +1,3 @@
 export default function Hi() {
-  return <>Hi!</>;
+  return 'Hi~~~!';
 }

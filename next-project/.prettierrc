@@ -10,6 +10,7 @@
     "^next$",
     "^next/\\w*$",
     "^next/(.*)$",
+    "^next-auth/(.*)$",
     "^react$",
     "^react/(.*)$",
     "^@/lib/(.*)$",

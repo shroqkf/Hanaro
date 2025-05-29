@@ -20,6 +20,8 @@ export default function HelloLayout({ children }: PropsWithChildren) {
     urlParams.set('r', `rrr`);
     router.push(`/hello?${urlParams.toString()}`);
   };
+
+  
   return (
     <>
       <h1>This is Hello Layout: {state}</h1>
