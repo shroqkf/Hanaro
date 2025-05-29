@@ -1,7 +1,7 @@
-import { SessionProvider } from 'next-auth/react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/lib/auth';
 import { ThemeProvider } from '../components/theme-provider';
 import { ModeToggle } from '../components/ui/mode-toggle';
@@ -50,6 +50,7 @@ export default async function RootLayout({
               <Link href='/intercept'>Intercept</Link>
               <Link href='/photos'>Photos</Link>
               <Link href='/board'>Boards</Link>
+              <Link href='/todos'>Todos</Link>
               <ModeToggle />
             </div>
             <div>{children}</div>
