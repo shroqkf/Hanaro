@@ -1,6 +1,5 @@
 services:
   localdb:
-    container_name: hanaro
     image: mysql:8.0
     ports:
       - 3309:3306
@@ -14,4 +13,4 @@ services:
       - --innodb_ft_min_token_size=2
       - --innodb_ft_server_stopword_table=hanarodb/StopWord
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql

@@ -11,7 +11,6 @@ type Props = {
 
 export default async function EditPostPage({ params }: Props) {
   const session = await auth();
-  const loginUserId = session?.user?.id ? Number(session.user.id) : null;
 
   const postId = Number(params.postId);
   const post = await getPostById(postId);
@@ -26,17 +25,20 @@ export default async function EditPostPage({ params }: Props) {
   const handleSubmit = async (data: {
     title: string;
     content: string;
+    categoryId: number;
     userId: number;
   }) => {
     'use server';
-    const { title, content } = data;
-    await updatePost(postId, title, content);
-    redirect(`/boards/${post.category_id}/${postId}`);
+    const { title, content, categoryId } = data;
+    await updatePost(postId, title, content, categoryId);
+    redirect(`/boards/${categoryId}/${postId}`);
   };
 
   return (
     <div className='p-8'>
-      <h1 className='text-2xl font-bold mb-6'>게시글 수정</h1>
+      <h1 className='flex justify-between text-2xl font-bold mb-6'>
+        게시글 수정
+      </h1>
       <PostForm
         onSubmit={handleSubmit}
         initialTitle={post.title}

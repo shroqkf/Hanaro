@@ -49,7 +49,7 @@ export default async function AllPostsPage({ searchParams }: Props) {
                   )}
                 </Link>
                 <p className='text-sm text-gray-500'>
-                  by {post.name || '익명'} ·&nbsp;
+                  by {post.name || 'user'} ·&nbsp;
                   {format(new Date(post.writedt), 'yyyy-MM-dd')}
                 </p>
                 <p className='mt-1 text-gray-700 line-clamp-2'>

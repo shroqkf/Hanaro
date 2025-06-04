@@ -10,17 +10,16 @@ type SearchResult = {
   content: string | null;
   writedt: string;
   editdt: string | null;
-  name: string;
+  name: string; // User.name
 };
 
 export async function searchPosts(rawQuery: string): Promise<SearchResult[]> {
-  // Fulltext 검색
   return prisma.$queryRawUnsafe<SearchResult[]>(
     `
-    SELECT P.*
+    SELECT P.post_id, P.user_id, P.category_id, P.title, P.content, P.writedt, P.editdt, U.name
     FROM Post P
-    WHERE MATCH(P.title, P.content)
-    AGAINST (? IN NATURAL LANGUAGE MODE)
+    JOIN User U ON P.user_id = U.user_id
+    WHERE MATCH(P.title, P.content) AGAINST (? IN NATURAL LANGUAGE MODE)
     `,
     rawQuery
   );

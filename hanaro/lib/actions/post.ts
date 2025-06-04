@@ -21,11 +21,17 @@ export async function createPost(
 export async function updatePost(
   postId: number,
   title: string,
-  content: string
+  content: string,
+  categoryId: number
 ) {
-  await prisma.post.update({
+  return prisma.post.update({
     where: { post_id: postId },
-    data: { title, content, editdt: new Date() },
+    data: {
+      title,
+      content,
+      category_id: categoryId,
+      editdt: new Date(),
+    },
   });
 }
 
@@ -41,7 +47,7 @@ export async function getAllPosts() {
 
   return posts.map((post) => ({
     ...post,
-    name: post.User?.name || '익명',
+    name: post.User?.name || 'user',
   }));
 }
 

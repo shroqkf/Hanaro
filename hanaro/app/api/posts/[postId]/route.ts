@@ -3,7 +3,7 @@ import { getPostById } from '@/lib/actions/post';
 import prisma from '@/lib/db';
 
 export async function GET(
-  _: Request,
+  _req: Request,
   { params }: { params: { postId: string } }
 ) {
   const post = await getPostById(Number(params.postId));

@@ -22,8 +22,6 @@ export default async function PostDetailPage({ params }: Props) {
   const post = await getPostById(Number(params.postId));
   if (!post || post.category_id !== Number(params.id)) return notFound();
 
-  const isOwner = loginUserId === post.user_id;
-
   return (
     <div className='h-screen p-8 w-full'>
       <h1 className='flex justify-between text-3xl font-bold mb-2'>
@@ -42,11 +40,14 @@ export default async function PostDetailPage({ params }: Props) {
       <p className='text-sm text-gray-500 mb-6'>
         작성자: {post.User.name} &nbsp; 작성일:
         {format(new Date(post.writedt), 'yyyy-MM-dd')}
+        {post.editdt && (
+          <>&nbsp; | 수정일: {format(new Date(post.editdt), 'yyyy-MM-dd')}</>
+        )}
       </p>
 
       <div className='mb-6'>{post.content}</div>
 
-      {isOwner && (
+      {session?.user?.is_admin && (
         <div className='flex items-center justify-evenly mb-12'>
           <Link
             href={`/posts/edit/${post.post_id}`}

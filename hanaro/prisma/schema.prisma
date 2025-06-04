@@ -11,7 +11,7 @@ datasource db {
 
 model Category {
   category_id Int    @id @default(autoincrement())
-  name        String @unique @db.VarChar(50)
+  name        String @db.VarChar(50)
   Post        Post[]
 }
 
@@ -29,7 +29,6 @@ model Post {
 
   @@index([category_id], map: "category_id")
   @@index([user_id], map: "user_id")
-  @@fulltext([title, content])
 }
 
 model Reaction {
@@ -48,22 +47,13 @@ model User {
   user_id  Int        @id @default(autoincrement())
   name     String     @db.VarChar(50)
   email    String     @unique(map: "email") @db.VarChar(100)
-  password String?    @db.VarChar(255)
+  password String     @db.VarChar(255)
   is_admin Boolean    @default(false)
   Post     Post[]
   Reaction Reaction[]
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model StopWord {
-  value String @db.VarChar(31)
-
-  @@ignore
 }
 
 enum Reaction_type {
   like
   dislike
 }
-
-
