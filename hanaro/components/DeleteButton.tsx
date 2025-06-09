@@ -1,5 +1,6 @@
 'use client';
 
+import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
@@ -39,8 +40,9 @@ export default function DeleteButton({ postId }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <button className='px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'>
-          삭제
+        <button className='flex items-center gap-1 px-4 py-2 bg-gray-500 text-white cursor-pointer rounded hover:bg-red-500'>
+          <Trash2 size={16} />
+          <span>삭제</span>
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>

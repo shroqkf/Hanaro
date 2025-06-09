@@ -53,7 +53,9 @@ export default function Header() {
                       <Link href='/mypage'>마이페이지</Link>
                     </MenubarItem>
                     <MenubarItem asChild>
-                      <Link href='/api/auth/signout'>로그아웃</Link>
+                      <Link href='/api/auth/signout?callbackUrl=/login'>
+                        로그아웃
+                      </Link>
                     </MenubarItem>
                   </>
                 ) : (

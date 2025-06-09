@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { Edit } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostById, getUserReaction } from '@/lib/actions/post';
@@ -27,13 +28,15 @@ export default async function PostDetailPage({ params }: Props) {
       <h1 className='flex justify-between text-3xl font-bold mb-2'>
         {post.title}
         <section className='flex gap-4 mr-4'>
-          {loginUserId && (
-            <ReactionButtons
-              postId={post.post_id}
-              userId={loginUserId}
-              initialType={await getUserReaction(post.post_id, loginUserId)}
-            />
-          )}
+          <ReactionButtons
+            postId={post.post_id}
+            userId={loginUserId} // 로그인 안 했을 경우 null 전달
+            initialType={
+              loginUserId
+                ? await getUserReaction(post.post_id, loginUserId)
+                : null
+            }
+          />
         </section>
       </h1>
 
@@ -51,9 +54,10 @@ export default async function PostDetailPage({ params }: Props) {
         <div className='flex items-center justify-evenly mb-12'>
           <Link
             href={`/posts/edit/${post.post_id}`}
-            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+            className='flex items-center gap-1 px-4 py-2 bg-gray-500 text-white rounded hover:bg-blue-500'
           >
-            수정
+            <Edit size={16} />
+            <span>수정</span>
           </Link>
           <DeleteButton postId={post.post_id} />
         </div>
