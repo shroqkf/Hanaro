@@ -1,3 +1,5 @@
+package bank;
+
 import java.util.Scanner;
 
 public class Account {
@@ -47,7 +49,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account{"
+		return "Bank.Account{"
 			+ "accountNo=" + accountNo
 			+ ", name='" + name + '\''
 			+ ", balance=" + balance
