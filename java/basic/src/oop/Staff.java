@@ -28,10 +28,10 @@ public class Staff extends Person {
 
 	@Override
 	public String toString() {
-		return "Staff{"
+		return "Staff["
 			+ super.toString()
-			+ "school='" + school + '\''
+			+ ", school='" + school + '\''
 			+ ", pay=" + pay
-			+ '}';
+			+ ']';
 	}
 }

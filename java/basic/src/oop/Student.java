@@ -12,6 +12,23 @@ public class Student extends Person {
 		this.fee = fee;
 	}
 
+	public static void method(Person p) {
+		try {
+			Student stu = (Student)p;
+		} catch (ClassCastException e) {
+			System.err.println(e.getMessage());
+		}
+		System.out.println("DownCasting!!");
+	}
+
+	public static void main(String[] args) {
+		Person p1 = new Person("Hong", "Seoul");
+		Person p2 = new Student("Kim", "Pusan", "xx", 2025, 2000);
+		Staff s1 = new Staff("xx", "xx", "xx", 500);
+		Student.method(p1);
+		Student.method(p2);
+	}
+
 	public String getProgram() {
 		return program;
 	}
@@ -40,7 +57,7 @@ public class Student extends Person {
 	public String toString() {
 		return "Student["
 			+ super.toString()
-			+ "program='" + program + '\''
+			+ ", program='" + program + '\''
 			+ ", year=" + year
 			+ ", fee=" + fee
 			+ ']';
