@@ -1,4 +1,4 @@
-package oopEx;
+package oopex;
 
 public class ResizableRectangle extends Rectangle implements Resizable {
 	public ResizableRectangle(double width, double height) {
