@@ -2,10 +2,11 @@ package ex;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Sets {
 	public static void main(String args[]) {
-		Set<Integer> set1 = new HashSet<>();
+		Set<Integer> set1 = new TreeSet<>();
 		set1.add(1100);
 		set1.add(22);
 		set1.add(53);
