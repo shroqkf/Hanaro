@@ -2,10 +2,10 @@ package lambda;
 
 import java.util.Arrays;
 
-import lambda.annotaions.In;
-import lambda.annotaions.Max;
-import lambda.annotaions.Min;
-import lambda.annotaions.NotNull;
+import lambda.annotations.In;
+import lambda.annotations.Max;
+import lambda.annotations.Min;
+import lambda.annotations.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

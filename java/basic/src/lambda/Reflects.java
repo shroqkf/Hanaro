@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lambda.annotaions.IllegalAnnotationException;
-import lambda.annotaions.In;
-import lambda.annotaions.Max;
-import lambda.annotaions.Min;
-import lambda.annotaions.NotNull;
+import lambda.annotations.IllegalAnnotationException;
+import lambda.annotations.In;
+import lambda.annotations.Max;
+import lambda.annotations.Min;
+import lambda.annotations.NotNull;
 
 public class Reflects {
 	public static void makeNotNullFields(Object obj) {
@@ -47,33 +47,7 @@ public class Reflects {
 				messageCollector.addMessage(fname, notNull.value());
 			}
 
-			if (f.isAnnotationPresent(Min.class)) {
-				Min min = f.getAnnotation(Min.class);
-				var len = 0.0;
-				if (f.getType() == String.class) {
-					len = val == null ? 0 : ((String)val).length();
-				} else {
-					len = val == null ? 0 : (double)val;
-				}
-
-				if (len < min.value()) {
-					messageCollector.addMessage(fname, min.msg().formatted(min.value()));
-				}
-			}
-
-			if (f.isAnnotationPresent(Max.class)) {
-				Max max = f.getAnnotation(Max.class);
-				var len = 0.0;
-				if (f.getType() == String.class) {
-					len = val == null ? 0 : ((String)val).length();
-				} else {
-					len = val == null ? 0 : (double)val;
-				}
-
-				if (len > max.value()) {
-					messageCollector.addMessage(fname, max.msg().formatted(max.value()));
-				}
-			}
+			messageCollector.addMessage(fname, validateMinMax(f, val));
 
 			if (f.isAnnotationPresent(In.class)) {
 				In in = f.getAnnotation(In.class);
@@ -89,12 +63,47 @@ public class Reflects {
 		return messageCollector.toStringArray();
 	}
 
+	private static String[] validateMinMax(Field f, Object val) {
+		if (!f.isAnnotationPresent(Min.class) && !f.isAnnotationPresent(Max.class))
+			return null;
+
+		var vlen = 0.0;
+		if (f.getType() == String.class) {
+			vlen = val == null ? 0 : ((String)val).length();
+		} else {
+			vlen = val == null ? 0 : (double)val;
+		}
+
+		List<String> msgs = new ArrayList<>();
+		if (f.isAnnotationPresent(Min.class)) {
+			Min min = f.getAnnotation(Min.class);
+			if (vlen < min.value())
+				msgs.add(min.msg().formatted(min.value()));
+		}
+
+		if (f.isAnnotationPresent(Max.class)) {
+			Max max = f.getAnnotation(Max.class);
+			if (vlen > max.value())
+				msgs.add(max.msg().formatted(max.value()));
+		}
+
+		return msgs.isEmpty() ? null : msgs.toArray(String[]::new);
+	}
+
 }
 
 class MessageCollector {
 	Map<String, List<String>> collectedMessage = new HashMap<>();
 
 	public void addMessage(String key, String message) {
+		if (message == null)
+			return;
+		addMessage(key, new String[] {message});
+	}
+
+	public void addMessage(String key, String[] msgs) {
+		if (msgs == null)
+			return;
 		List<String> messages;
 		if (collectedMessage.containsKey(key)) {
 			messages = collectedMessage.get(key);
@@ -102,7 +111,7 @@ class MessageCollector {
 			messages = new ArrayList<>();
 			collectedMessage.put(key, messages);
 		}
-		messages.add(message);
+		messages.addAll(Arrays.asList(msgs));
 	}
 
 	public String[] toStringArray() {
