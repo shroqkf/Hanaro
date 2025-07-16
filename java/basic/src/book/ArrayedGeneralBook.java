@@ -1,4 +1,4 @@
-package general;
+package book;
 
 public class ArrayedGeneralBook implements GeneralBook {
 	private static final int CAPACITY = 10;

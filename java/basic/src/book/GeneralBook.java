@@ -1,4 +1,4 @@
-package general;
+package book;
 
 public interface GeneralBook {
 	int size();
