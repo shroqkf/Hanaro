@@ -1,0 +1,20 @@
+2025-07-23 11:31:49 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 80537 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 11:31:49 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 11:31:49 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 11:31:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 11:31:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 11:31:49 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 11:31:49 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.965 seconds (process running for 1.533)
+2025-07-23 11:32:08 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 11:32:08 [http-nio-8080-exec-1] DEBUG com.hana7.springdemo.HiController - hiName=cy
+2025-07-23 11:32:19 [http-nio-8080-exec-4] DEBUG com.hana7.springdemo.HiController - hiName=cy
+2025-07-23 11:32:20 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 80537 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 11:32:20 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 11:32:20 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 11:32:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 11:32:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 11:32:20 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 11:32:20 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.168 seconds (process running for 32.386)
+2025-07-23 11:32:22 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 11:32:22 [http-nio-8080-exec-1] DEBUG com.hana7.springdemo.HiController - hiName=cy
+2025-07-23 11:32:26 [http-nio-8080-exec-4] DEBUG com.hana7.springdemo.HiController - hiName=chanyoung
