@@ -18,3 +18,127 @@
 2025-07-23 11:32:22 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-07-23 11:32:22 [http-nio-8080-exec-1] DEBUG com.hana7.springdemo.HiController - hiName=cy
 2025-07-23 11:32:26 [http-nio-8080-exec-4] DEBUG com.hana7.springdemo.HiController - hiName=chanyoung
+2025-07-23 11:55:46 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 80537 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 11:55:46 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 11:55:46 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 11:55:46 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 11:55:46 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 11:55:46 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 11:55:46 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.295 seconds (process running for 1437.918)
+2025-07-23 11:55:47 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 80537 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 11:55:47 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 11:55:47 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 11:55:48 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 11:55:48 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 11:55:48 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 11:55:48 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.31 seconds (process running for 1439.724)
+2025-07-23 13:12:35 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 13:12:35 [http-nio-8080-exec-1] DEBUG c.hana7.springdemo.HelloController - name = null
+2025-07-23 13:12:35 [http-nio-8080-exec-1] DEBUG c.hana7.springdemo.HelloController - Debug
+2025-07-23 13:12:35 [http-nio-8080-exec-1] WARN  c.hana7.springdemo.HelloController - Warning!
+2025-07-23 13:12:35 [http-nio-8080-exec-1] INFO  c.hana7.springdemo.HelloController - Info
+2025-07-23 13:13:45 [http-nio-8080-exec-3] DEBUG c.hana7.springdemo.HelloController - name = null
+2025-07-23 13:13:45 [http-nio-8080-exec-3] DEBUG c.hana7.springdemo.HelloController - Debug
+2025-07-23 13:13:45 [http-nio-8080-exec-3] WARN  c.hana7.springdemo.HelloController - Warning!
+2025-07-23 13:13:45 [http-nio-8080-exec-3] INFO  c.hana7.springdemo.HelloController - Info
+2025-07-23 13:18:07 [http-nio-8080-exec-5] DEBUG com.hana7.springdemo.HiController - Debug = syddl
+2025-07-23 13:18:07 [http-nio-8080-exec-5] INFO  com.hana7.springdemo.HiController - Hi! INFO
+2025-07-23 13:18:15 [http-nio-8080-exec-6] DEBUG com.hana7.springdemo.HiController - hiName=Hi! syddl
+2025-07-23 13:25:35 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 80537 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 13:25:35 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 13:25:35 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 13:25:35 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 13:25:35 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 13:25:35 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 13:25:36 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.184 seconds (process running for 5929.152)
+2025-07-23 13:32:32 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 61740 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 13:32:32 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 13:32:32 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 13:32:32 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 13:32:32 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 13:32:32 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 13:32:32 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.115 seconds (process running for 1.974)
+2025-07-23 13:34:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 61740 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 13:34:12 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 13:34:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 13:34:12 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 13:34:12 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 13:34:12 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 13:34:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.182 seconds (process running for 101.926)
+2025-07-23 13:34:21 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 13:34:21 [http-nio-8080-exec-1] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 13:34:27 [http-nio-8080-exec-2] INFO  c.h.springdemo.dto.UserController - GET=134
+2025-07-23 13:36:46 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 64917 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 13:36:46 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 13:36:46 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 13:36:47 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 13:36:47 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 13:36:47 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 13:36:47 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.362 seconds (process running for 2.17)
+2025-07-23 13:36:56 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 13:36:57 [http-nio-8080-exec-1] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 13:37:03 [http-nio-8080-exec-2] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 13:37:06 [http-nio-8080-exec-3] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 13:37:14 [http-nio-8080-exec-4] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 13:37:17 [http-nio-8080-exec-5] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 13:37:19 [http-nio-8080-exec-6] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 13:41:27 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 68352 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 13:41:27 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 13:41:27 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 13:41:28 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 13:41:28 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 13:41:28 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 13:41:28 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.201 seconds (process running for 1.953)
+2025-07-23 13:41:37 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 13:41:37 [http-nio-8080-exec-1] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 13:41:55 [http-nio-8080-exec-2] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=, mobile=010-1234-1234)
+2025-07-23 14:06:29 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 68352 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 14:06:29 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 14:06:29 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 14:06:30 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 14:06:30 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 14:06:30 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 14:06:30 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.199 seconds (process running for 1492.812)
+2025-07-23 14:08:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 68352 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 14:08:12 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 14:08:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 14:08:12 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 14:08:12 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 14:08:12 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 14:08:12 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 0.16 seconds (process running for 1595.356)
+2025-07-23 14:09:00 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 88799 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 14:09:00 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 14:09:00 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 14:09:01 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 14:09:01 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 14:09:01 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 14:09:01 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.02 seconds (process running for 1.614)
+2025-07-23 14:12:44 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 14:12:44 [http-nio-8080-exec-1] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 14:12:53 [http-nio-8080-exec-2] DEBUG c.h.springdemo.dto.UserController - user=User(id=0, name=syddl, email=test@gmail.com, mobile=010-1234-1234)
+2025-07-23 14:13:01 [http-nio-8080-exec-3] INFO  c.h.springdemo.dto.UserController - PATCH=1 → updateUser=User(id=0, name=syddl0, email=testEdit@gmail.com, mobile=010-5678-5678)
+2025-07-23 14:13:10 [http-nio-8080-exec-4] WARN  c.h.springdemo.dto.UserController - DELETE=1
+2025-07-23 14:13:39 [http-nio-8080-exec-5] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 14:13:43 [http-nio-8080-exec-6] INFO  c.h.springdemo.dto.UserController - PATCH=1 → updateUser=User(id=0, name=syddl0, email=testEdit@gmail.com, mobile=010-5678-5678)
+2025-07-23 14:13:56 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 92453 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 14:13:56 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 14:13:56 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 14:13:56 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 14:13:56 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 14:13:56 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 14:13:57 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.166 seconds (process running for 1.696)
+2025-07-23 14:14:01 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 14:14:01 [http-nio-8080-exec-1] INFO  c.h.springdemo.dto.UserController - PATCH=1 → updateUser=User(id=0, name=syddl0, email=testEdit@gmail.com, mobile=010-5678-5678)
+2025-07-23 14:14:37 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Starting SpringDemoApplication using Java 21.0.7 with PID 92963 (/Users/noh-chanyoung/Hanaro/spring/spring-demo/build/classes/java/main started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/spring-demo)
+2025-07-23 14:14:37 [restartedMain] DEBUG c.h.springdemo.SpringDemoApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-23 14:14:37 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-23 14:14:37 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-23 14:14:37 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-23 14:14:37 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-23 14:14:37 [restartedMain] INFO  c.h.springdemo.SpringDemoApplication - Started SpringDemoApplication in 1.318 seconds (process running for 2.295)
+2025-07-23 14:14:42 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-23 14:14:42 [http-nio-8080-exec-1] INFO  c.h.springdemo.dto.UserController - GET=1
+2025-07-23 14:14:44 [http-nio-8080-exec-2] INFO  c.h.springdemo.dto.UserController - PATCH=1 → updateUser=User(id=0, name=syddl0, email=testEdit@gmail.com, mobile=010-5678-5678)
+2025-07-23 14:42:04 [http-nio-8080-exec-5] INFO  c.h.springdemo.dto.UserController - GET users
+2025-07-23 14:42:38 [http-nio-8080-exec-6] INFO  c.h.springdemo.dto.UserController - GET users
+2025-07-23 14:42:56 [http-nio-8080-exec-7] INFO  c.h.springdemo.dto.UserController - GET users
