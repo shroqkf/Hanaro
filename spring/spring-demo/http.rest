@@ -1,6 +1,42 @@
 @baseUrl=http://localhost:8081
 #@baseUrl=https://a.com
 
+### post - all
+GET {{baseUrl}}/posts
+
+
+### post - add
+POST {{baseUrl}}/posts
+Content-Type: application/json
+
+{
+  "title": "Test Post2",
+  "writer": 1,
+  "content": "Spring"
+}
+
+> {%
+    client.global.set("newerId", response.body.id);
+%}
+
+### post - update
+PATCH {{baseUrl}}/posts/{{newerId}}
+Content-Type: application/json
+
+{
+  "title": "Test Post - update",
+  "userId": 1,
+  "content": "Spring Boot",
+  "createdAt": "2025-07-24T11:08:00"
+}
+
+### post - delete
+DELETE {{baseUrl}}/posts/{{newerId}}
+
+### post - get one
+GET {{baseUrl}}/posts/{{newerId}}
+
+
 ### user - all
 GET {{baseUrl}}/users
 
