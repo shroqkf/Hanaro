@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.hana7.springdemo.jpa.dto.BoardDetailResponseDTO;
 import com.hana7.springdemo.jpa.dto.BoardRequestDTO;
 import com.hana7.springdemo.jpa.dto.BoardResponseDTO;
 import com.hana7.springdemo.jpa.dto.PageResponseDTO;
@@ -33,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardResponseDTO getBoard(int id) {
 		Optional<Board> byId = repository.findById(id);
-		return byId.map(BoardServiceImpl::toDTO).orElse(null);
+		return byId.map(BoardServiceImpl::toDetailDTO).orElse(null);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
 		board.setWriter(requestDTO.getWriter());
 		board.getContent().setContent(requestDTO.getContent());
 
-		return toDTO(repository.save(board));
+		return toDetailDTO(repository.save(board));
 	}
 
 	@Override
@@ -68,6 +69,18 @@ public class BoardServiceImpl implements BoardService {
 
 	public static BoardResponseDTO toDTO(Board board) {
 		return BoardResponseDTO.builder()
+			.id(board.getId())
+			.title(board.getTitle())
+			.writer(board.getWriter())
+			.hit(board.getHit())
+			// .content(board.getContent().getContent())
+			.createdAt(board.getCreatedAt())
+			.updatedAt(board.getUpdatedAt())
+			.build();
+	}
+
+	public static BoardDetailResponseDTO toDetailDTO(Board board) {
+		return BoardDetailResponseDTO.builder()
 			.id(board.getId())
 			.title(board.getTitle())
 			.writer(board.getWriter())
