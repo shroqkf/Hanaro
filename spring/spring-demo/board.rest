@@ -1,0 +1,35 @@
+@baseUrl=http://localhost:8081
+
+### all
+GET {{baseUrl}}/boards?page=1&countPerPage=3
+
+### detail
+GET {{baseUrl}}/boards/1
+
+
+### add
+POST {{baseUrl}}/boards
+Content-Type: application/json
+
+{
+  "title": "title03",
+  "writer": "hong",
+  "content": "content...."
+}
+
+> {%
+    client.global.set("newerId", response.body.id);
+%}
+
+### update
+PATCH {{baseUrl}}/boards/{{newerId}}
+Content-Type: application/json
+
+{
+  "title": "title03 - up",
+  "writer": "hong-up",
+  "content": "content....up!!"
+}
+
+### user - delete
+DELETE {{baseUrl}}/boards/{{newerId}}
