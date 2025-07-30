@@ -2,7 +2,6 @@ package com.hana7.springdemo.jpa.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
