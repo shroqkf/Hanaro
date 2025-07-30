@@ -14,14 +14,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Builder
 @Setter @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(callSuper = true)
 public class Reply extends BaseEntity {
 	@Id
@@ -38,4 +36,14 @@ public class Reply extends BaseEntity {
 	@JoinColumn(name= "board",
 		foreignKey = @ForeignKey(name = "fk_Reply_board"))
 	private Board board;
+
+	@Override
+	public String toString() {
+		return "Reply{" +
+			"id=" + id +
+			", reply='" + reply + '\'' +
+			", replyer='" + replyer + '\'' +
+			", board=" + board.getId() +
+			'}';
+	}
 }

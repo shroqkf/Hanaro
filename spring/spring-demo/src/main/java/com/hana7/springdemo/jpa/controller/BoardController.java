@@ -26,7 +26,8 @@ public class BoardController {
 	}
 
 	@GetMapping
-	public List<BoardResponseDTO> getPageList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int countPerPage) {
+	public List<BoardResponseDTO> getPageList(@RequestParam(defaultValue = "1") int page,
+		@RequestParam(defaultValue = "10") int countPerPage) {
 		return service.getPageList(page, countPerPage);
 	}
 
@@ -51,4 +52,8 @@ public class BoardController {
 		service.removeBoard(id);
 		return id;
 	}
+
+	// @PostMapping("/{id}/replies")
+	// @PatchMapping("/{id}/replies/{replyId}")
+	// @DeleteMapping("/{id}/replies/{replyId}")
 }
