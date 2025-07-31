@@ -1,5 +1,8 @@
 package com.hana7.springdemo.jpa.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -14,7 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class BoardContent extends BaseEntity {
 	@Id
@@ -26,8 +30,9 @@ public class BoardContent extends BaseEntity {
 	private String content;
 
 	@OneToOne(optional = false)
-	@JoinColumn(
+	@JoinColumn(name = "board",
 		foreignKey = @ForeignKey(name = "fk_BoardContent_board"))
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Board board;
 
 	public BoardContent(String content) {

@@ -7,11 +7,12 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-@Getter @Setter
+@Getter
+@Setter
 public class BoardResponseDTO {
 	private int id;
 	private String title;
-	private String writer;
+	private MemberDTO writer;
 	private int hit;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

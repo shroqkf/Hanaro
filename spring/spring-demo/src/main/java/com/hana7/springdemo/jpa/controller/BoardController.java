@@ -2,6 +2,7 @@ package com.hana7.springdemo.jpa.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hana7.springdemo.jpa.dto.BoardRequestDTO;
 import com.hana7.springdemo.jpa.dto.BoardResponseDTO;
+import com.hana7.springdemo.jpa.dto.ErrorResponseDTO;
 import com.hana7.springdemo.jpa.service.BoardService;
 
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
 	private final BoardService service;
+
 	public BoardController(BoardService service) {
 		this.service = service;
 	}
@@ -37,8 +40,13 @@ public class BoardController {
 	}
 
 	@GetMapping("/{id}")
-	public BoardResponseDTO getBoard(@PathVariable int id) {
-		return service.getBoard(id);
+	public ResponseEntity<?> getBoard(@PathVariable int id) {
+		BoardResponseDTO board = service.getBoard(id);
+		if (board != null)
+			return ResponseEntity.ok(board);
+
+		return ResponseEntity.status(404).body(
+			new ErrorResponseDTO(id + "를 찾을 수 없습니다.", "NOT_FOUND"));
 	}
 
 	@PatchMapping("/{id}")

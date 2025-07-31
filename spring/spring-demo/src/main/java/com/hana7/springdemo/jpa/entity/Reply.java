@@ -1,5 +1,8 @@
 package com.hana7.springdemo.jpa.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -17,7 +20,8 @@ import lombok.Setter;
 
 @Entity
 @Builder
-@Setter @Getter
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -29,11 +33,13 @@ public class Reply extends BaseEntity {
 	@Column(length = 1000, nullable = false)
 	private String reply;
 
-	@Column(length = 30, nullable = false)
-	private String replyer;
+	@ManyToOne
+	@JoinColumn(name = "replyer", foreignKey = @ForeignKey(name = "fk_Reply_replyer_Member"), nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Member replyer;
 
 	@ManyToOne
-	@JoinColumn(name= "board",
+	@JoinColumn(name = "board",
 		foreignKey = @ForeignKey(name = "fk_Reply_board"))
 	private Board board;
 

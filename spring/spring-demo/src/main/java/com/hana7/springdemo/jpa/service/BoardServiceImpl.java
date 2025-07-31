@@ -14,15 +14,19 @@ import com.hana7.springdemo.jpa.dto.PageResponseDTO;
 import com.hana7.springdemo.jpa.dto.ReplyResponseDTO;
 import com.hana7.springdemo.jpa.entity.Board;
 import com.hana7.springdemo.jpa.entity.BoardContent;
+import com.hana7.springdemo.jpa.entity.Member;
 import com.hana7.springdemo.jpa.entity.Reply;
 import com.hana7.springdemo.jpa.repository.BoardRepository;
+import com.hana7.springdemo.jpa.repository.MemberRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	private final BoardRepository repository;
+	private final MemberRepository memberRepository;
 
-	public BoardServiceImpl(BoardRepository repository) {
+	public BoardServiceImpl(BoardRepository repository, MemberRepository memberRepository) {
 		this.repository = repository;
+		this.memberRepository = memberRepository;
 	}
 
 	@Override
@@ -35,8 +39,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardResponseDTO getBoard(int id) {
-		Board board = repository.findById(id).orElseThrow();
-		return toDetailDTO(board);
+		return repository.findById(id).map(BoardServiceImpl::toDetailDTO).orElse(null);
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class BoardServiceImpl implements BoardService {
 	public BoardResponseDTO changeBoard(BoardRequestDTO requestDTO) {
 		Board board = repository.findById(requestDTO.getId()).orElseThrow();
 		board.setTitle(requestDTO.getTitle());
-		board.setWriter(requestDTO.getWriter());
+		board.setWriter(getMember(requestDTO.getWriter()));
 		board.getContent().setContent(requestDTO.getContent());
 
 		return toDetailDTO(repository.save(board));
@@ -61,21 +64,12 @@ public class BoardServiceImpl implements BoardService {
 		repository.deleteById(id);
 	}
 
-	public static Board toEntity(BoardRequestDTO dto) {
-		return Board.builder()
-			.id(dto.getId())
-			.title(dto.getTitle())
-			.writer(dto.getWriter())
-			.build();
-	}
-
 	public static BoardResponseDTO toDTO(Board board) {
 		return BoardResponseDTO.builder()
 			.id(board.getId())
 			.title(board.getTitle())
-			.writer(board.getWriter())
+			.writer(MemberServiceImpl.toDTO(board.getWriter()))
 			.hit(board.getHit())
-			// .content(board.getContent().getContent())
 			.createdAt(board.getCreatedAt())
 			.updatedAt(board.getUpdatedAt())
 			.build();
@@ -85,7 +79,7 @@ public class BoardServiceImpl implements BoardService {
 		return BoardDetailResponseDTO.builder()
 			.id(board.getId())
 			.title(board.getTitle())
-			.writer(board.getWriter())
+			.writer(MemberServiceImpl.toDTO(board.getWriter()))
 			.hit(board.getHit())
 			.content(board.getContent().getContent())
 			.createdAt(board.getCreatedAt())
@@ -101,8 +95,20 @@ public class BoardServiceImpl implements BoardService {
 		return ReplyResponseDTO.builder()
 			.id(reply.getId())
 			.reply(reply.getReply())
-			.replyer(reply.getReplyer())
+			.replyer(MemberServiceImpl.toDTO(reply.getReplyer()))
 			.board(toDTO(reply.getBoard()))
 			.build();
+	}
+
+	private Board toEntity(BoardRequestDTO dto) {
+		return Board.builder()
+			.id(dto.getId())
+			.title(dto.getTitle())
+			.writer(getMember(dto.getWriter()))
+			.build();
+	}
+
+	private Member getMember(long memberId) {
+		return memberRepository.findById(memberId).orElseThrow();
 	}
 }

@@ -1,0 +1,22 @@
+@baseUrl=http://localhost:8081
+
+### paging
+GET {{baseUrl}}/members?page=2&size=1
+
+### all
+GET {{baseUrl}}/members
+
+### detail 1
+GET {{baseUrl}}/members/1
+
+### detail 2
+GET {{baseUrl}}/members/2
+
+### delete 1
+DELETE {{baseUrl}}/members/1
+
+### delete 3
+DELETE {{baseUrl}}/members/3
+
+### delete 2
+DELETE {{baseUrl}}/members/2

@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Builder
-@Getter @Setter
+@Getter
+@Setter
 public class ReplyResponseDTO {
 	private int id;
 	private String reply;
-	private String replyer;
+	private MemberDTO replyer;
 
 	@JsonBackReference
 	private BoardResponseDTO board;
