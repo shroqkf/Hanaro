@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Getter
 @Setter
+@ToString
 public class BoardResponseDTO {
 	private int id;
 	private String title;

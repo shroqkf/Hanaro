@@ -19,6 +19,11 @@ import com.hana7.springdemo.jpa.dto.BoardResponseDTO;
 import com.hana7.springdemo.jpa.dto.ErrorResponseDTO;
 import com.hana7.springdemo.jpa.service.BoardService;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
@@ -40,6 +45,12 @@ public class BoardController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "요청에 성공하였습니다."),
+		@ApiResponse(responseCode = "404", description = "해당 게시글을 찾을 수 없습니다.",
+			content = @Content(mediaType = "application/json",
+				schema = @Schema(implementation = ErrorResponseDTO.class)))
+	})
 	public ResponseEntity<?> getBoard(@PathVariable int id) {
 		BoardResponseDTO board = service.getBoard(id);
 		if (board != null)

@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 			.build();
 	}
 
-	private static MemberDTO toDetailDTO(Member member) {
+	static MemberDTO toDetailDTO(Member member) {
 		return MemberDetailResponseDTO.builder()
 			.id(member.getId())
 			.nickname(member.getNickname())
