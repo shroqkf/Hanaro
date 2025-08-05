@@ -1,5 +1,6 @@
 package com.hana7.springdemo.jpa.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import com.hana7.springdemo.jpa.dto.BoardRequestDTO;
 import com.hana7.springdemo.jpa.dto.BoardResponseDTO;
@@ -38,6 +41,16 @@ class BoardServiceTest {
 	private final BoardService service = new BoardServiceImpl(repository, memberRepository);
 
 	@Test
+	void boardListTest() {
+		Mockito.when(repository.findAll(ArgumentMatchers.any(Pageable.class)))
+			.thenReturn(new PageImpl<>(List.of(board, board)));
+
+		List<BoardResponseDTO> pageList = service.getPageList(1, 2);
+		System.out.println("pageList = " + pageList);
+		Assertions.assertEquals(2, pageList.size());
+	}
+
+	@Test
 	void createTest() {
 		Mockito.when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
 		Mockito.when(repository.save(ArgumentMatchers.any(Board.class))).then(AdditionalAnswers.returnsFirstArg());
@@ -46,7 +59,5 @@ class BoardServiceTest {
 
 		Assertions.assertEquals(board.getTitle(), createdBoard.getTitle());
 		Assertions.assertEquals((board.getWriter().getId()), createdBoard.getWriter().getId());
-
-		// verify(service.createBoard(any()));
 	}
 }

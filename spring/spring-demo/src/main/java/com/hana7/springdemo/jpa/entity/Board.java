@@ -60,7 +60,7 @@ public class Board extends BaseEntity {
 	@ColumnDefault("0")
 	private int hit;
 
-	@OneToOne(mappedBy = "board")
+	@OneToOne(mappedBy = "board", cascade = CascadeType.ALL)
 	private BoardContent content;
 
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)

@@ -2,10 +2,15 @@ package com.hana7.springdemo.jpa.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.hana7.springdemo.jpa.dao.MemberDAO;
+import com.hana7.springdemo.jpa.dto.MemberDTO;
+import com.hana7.springdemo.jpa.dto.SearchCond;
 import com.hana7.springdemo.jpa.entity.BloodType;
 import com.hana7.springdemo.jpa.entity.Member;
 
@@ -20,6 +25,20 @@ public class MemberServiceRemoveTest {
 			.email("hong@gmail.com")
 			.bloodType(BloodType.B)
 			.build();
+	}
+
+	@Test
+	void listTest() {
+		Member member = getMemberEntity();
+		SearchCond searchCond = SearchCond.builder()
+			.page(1).size(2)
+			.build();
+		Mockito.when(dao.findAll(searchCond.getPager()))
+			.thenReturn(List.of(member, member));
+
+		List<MemberDTO> list = service.findAll(searchCond);
+		System.out.println("list = " + list);
+		Assertions.assertEquals(2, list.size());
 	}
 
 	@Test

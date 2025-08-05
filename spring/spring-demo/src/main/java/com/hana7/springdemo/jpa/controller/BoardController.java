@@ -71,8 +71,4 @@ public class BoardController {
 		service.removeBoard(id);
 		return id;
 	}
-
-	// @PostMapping("/{id}/replies")
-	// @PatchMapping("/{id}/replies/{replyId}")
-	// @DeleteMapping("/{id}/replies/{replyId}")
 }

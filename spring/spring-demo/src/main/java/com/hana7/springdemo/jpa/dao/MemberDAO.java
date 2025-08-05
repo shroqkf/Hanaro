@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.hana7.springdemo.jpa.dto.SearchCond;
 import com.hana7.springdemo.jpa.entity.Member;
+import com.hana7.springdemo.jpa.entity.MemberImage;
 
 public interface MemberDAO {
 	List<Member> findAll(SearchCond searchCond);
@@ -15,4 +16,6 @@ public interface MemberDAO {
 	Member findOne(long id);
 
 	int remove(long id);
+
+	List<MemberImage> uploadImages(Long memberId, List<MemberImage> memberImages);
 }

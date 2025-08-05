@@ -12,4 +12,5 @@ import lombok.experimental.SuperBuilder;
 public class MemberDetailResponseDTO extends MemberDTO {
 	private int auth;
 	private List<BoardDetailResponseDTO> boards;
+	private List<MemberImageDTO> images;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -58,6 +59,9 @@ public class Member extends BaseEntity {
 	@OneToMany(mappedBy = "writer")
 	// @OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Board> boards;
+
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	private List<MemberImage> images;
 
 	public List<Board> getBoards() {
 		if (this.boards == null)
