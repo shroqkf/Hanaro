@@ -1,4 +1,4 @@
-package com.hana7.springdemo.dto;
+package com.hana7.springdemo;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hana7.springdemo.dto.User;
 import com.hana7.springdemo.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,8 +33,7 @@ public class UserController {
 	@Tag(name = "사용자 가입")
 	public User registry(@RequestBody @Validated User user) {
 		log.debug("user={}", user);
-		// user.setId(100);
-		service.saveUser(user);
+		service.save(user);
 		return user;
 	}
 
@@ -45,19 +45,20 @@ public class UserController {
 	@GetMapping("/{id}")
 	public User findUser(@PathVariable("id") Integer id) {
 		log.info("GET={}", id);
+
 		return service.getUser(id);
 	}
 
 	@PatchMapping("/{id}")
 	public User updateUser(@PathVariable("id") Integer id, @RequestBody @Validated User user) {
 		user.setId(id);
-		service.saveUser(user);
+		service.save(user);
 		return user;
 	}
 
 	@DeleteMapping("/{id}")
 	public int deleteUser(@PathVariable("id") Integer id) {
-		service.removeUser(id);
+		service.remove(id);
 		return id;
 	}
 }

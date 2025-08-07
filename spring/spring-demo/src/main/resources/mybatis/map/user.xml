@@ -10,7 +10,7 @@
         select id, name, mobile, email
         from User where id = #{id}
     </select>
-
+    
     <select id="getUsers" resultType="com.hana7.springdemo.dto.User">
         select id, name, mobile, email
         from User
@@ -18,12 +18,12 @@
 
     <update id="update" parameterType="User">
         update User
-        set name = #{name}, mobile = #{mobile}, email = #{email}
-        where id = #{id}
+           set name = #{name}, mobile = #{mobile}, email = #{email}
+         where id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">
         delete from User
-        where id = #{id}
+         where id = #{id}
     </delete>
 </mapper>

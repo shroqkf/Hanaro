@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,13 +28,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"boards"})
+@Table(
+	uniqueConstraints =
+	@UniqueConstraint(name = "uk_Hashtag_tag", columnNames = "tag"))
 public class Hashtag extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(length = 15, unique = true)
-	// @UniqueConstraint(name = "uk_Hashtag_tag")
 	private String tag;
 
 	@ManyToMany

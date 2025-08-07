@@ -10,22 +10,27 @@ import com.hana7.springdemo.dto.User;
 @Service
 public class UserService {
 	private final UserDAO repository;
-	public UserService(UserDAO repository){
-		this.repository=repository;
+
+	public UserService(UserDAO repository) {
+		this.repository = repository;
 	}
+
 	public List<User> getUsers() {
 		return repository.getUsers();
 	}
-	public User getUser(int id){
+
+	public User getUser(int id) {
 		return repository.getUser(id);
 	}
-	public void saveUser(User user){
+
+	public void save(User user) {
 		if (user.getId() > 0)
 			repository.update(user);
 		else
 			repository.insert(user);
 	}
-	public void removeUser(int id){
+
+	public void remove(int id) {
 		repository.delete(id);
 	}
 }

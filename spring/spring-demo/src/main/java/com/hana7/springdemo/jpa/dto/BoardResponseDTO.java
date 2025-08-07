@@ -19,5 +19,5 @@ public class BoardResponseDTO {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 
-	private String content;
+	// private String content;
 }

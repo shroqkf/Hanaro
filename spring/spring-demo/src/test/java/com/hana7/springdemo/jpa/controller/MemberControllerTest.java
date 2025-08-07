@@ -36,25 +36,26 @@ class MemberControllerTest {
 	}
 
 	@Test
+	@Order(3)
+	void deleteNotFoundTest() throws Exception {
+		mockMvc.perform(delete("/members/99999"))
+			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
 	@DisplayName("Member list test")
 	@Order(1)
 	void listTest() throws Exception {
 		int size = 2;
-		mockMvc.perform(get("/members?size=" + size)
+		mockMvc.perform(get("/members")
 				.param("page", "1")
+				.param("size", String.valueOf(size))
 			).andExpect(status().isOk())
 			.andExpect(jsonPath("$.length()").value(size))
 			.andExpect(jsonPath("$[0].id").value(2))
 			.andExpect(jsonPath("$[1].id").value(1))
 			.andExpect(jsonPath("$[1].nickname").value("hongx"))
-			.andDo(print());
-	}
-
-	@Test
-	@Order(3)
-	void deleteNotFoundTest() throws Exception {
-		mockMvc.perform(delete("/members/99999"))
-			.andExpect(status().isNotFound())
 			.andDo(print());
 	}
 }

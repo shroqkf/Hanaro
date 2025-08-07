@@ -1,0 +1,38 @@
+@baseUrl=http://localhost:8081
+
+### all
+GET {{baseUrl}}/posts
+
+
+### add
+POST {{baseUrl}}/posts
+Content-Type: application/json
+
+{
+  "title": "title03",
+  "writer": 2,
+  "content": "content...."
+}
+
+> {%
+    client.global.set("newerId", response.body.id);
+%}
+
+### user - update
+PATCH {{baseUrl}}/users/{{newerId}}
+Content-Type: application/json
+
+{
+  "name": "Sicoxx2",
+  "email": "abcxx22@gmail.com",
+  "mobile": "010-1234-5622"
+}
+
+### user - get one
+GET {{baseUrl}}/users/{{newerId}}
+
+### user - delete
+DELETE {{baseUrl}}/users/{{newerId}}
+
+### get 1
+GET {{baseUrl}}/posts/1

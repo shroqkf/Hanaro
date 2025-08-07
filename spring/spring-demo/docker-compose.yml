@@ -12,9 +12,6 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-      - --innodb_ft_min_token_size=2
-      - --log_bin_trust_function_creators=1
-      - --innodb_ft_server_stopword_table=testdb/StopWord
 
     volumes:
       - ./mysql:/var/lib/mysql

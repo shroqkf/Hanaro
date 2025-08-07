@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `Board`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Board` (
-                         `hit` int NOT NULL DEFAULT '0',
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         `writer` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `title` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-                         PRIMARY KEY (`id`)
+  `hit` int NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `writer` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,14 +51,14 @@ DROP TABLE IF EXISTS `BoardContent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `BoardContent` (
-                                `board_id` int NOT NULL,
-                                `id` int NOT NULL AUTO_INCREMENT,
-                                `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                                `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-                                PRIMARY KEY (`id`),
-                                UNIQUE KEY `UK5kykd367qyfkcpc0m93veb9jo` (`board_id`),
-                                CONSTRAINT `fk_BoardContent_board` FOREIGN KEY (`board_id`) REFERENCES `Board` (`id`)
+  `board_id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK5kykd367qyfkcpc0m93veb9jo` (`board_id`),
+  CONSTRAINT `fk_BoardContent_board` FOREIGN KEY (`board_id`) REFERENCES `Board` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,12 +80,12 @@ DROP TABLE IF EXISTS `DemoUser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `DemoUser` (
-                            `age` smallint NOT NULL,
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                            `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                            `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            PRIMARY KEY (`id`)
+  `age` smallint NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -107,15 +107,15 @@ DROP TABLE IF EXISTS `Member`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Member` (
-                          `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                          `id` bigint NOT NULL AUTO_INCREMENT,
-                          `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                          `nickname` varchar(31) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Guest',
-                          `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-                          `passwd` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `bloodType` enum('A','AB','B','O') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          PRIMARY KEY (`id`),
-                          UNIQUE KEY `UK9qv6yhjqm8iafto8qk452gx8h` (`email`)
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nickname` varchar(31) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Guest',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `passwd` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bloodType` enum('A','AB','B','O') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK9qv6yhjqm8iafto8qk452gx8h` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -136,11 +136,11 @@ DROP TABLE IF EXISTS `Memo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Memo` (
-                        `mno` int NOT NULL AUTO_INCREMENT,
-                        `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                        `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                        `memoText` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        PRIMARY KEY (`mno`)
+  `mno` int NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `memoText` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`mno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -161,14 +161,14 @@ DROP TABLE IF EXISTS `Post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Post` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                        `writer` int DEFAULT NULL,
-                        `content` text COLLATE utf8mb4_unicode_ci,
-                        PRIMARY KEY (`id`),
-                        KEY `writer` (`writer`),
-                        CONSTRAINT `post_ibfk_1` FOREIGN KEY (`writer`) REFERENCES `User` (`id`) ON DELETE SET NULL
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `writer` int DEFAULT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `writer` (`writer`),
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`writer`) REFERENCES `User` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,15 +190,15 @@ DROP TABLE IF EXISTS `Reply`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Reply` (
-                         `board` int DEFAULT NULL,
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                         `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                         `replyer` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `reply` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-                         PRIMARY KEY (`id`),
-                         KEY `fk_Reply_board` (`board`),
-                         CONSTRAINT `fk_Reply_board` FOREIGN KEY (`board`) REFERENCES `Board` (`id`)
+  `board` int DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `replyer` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reply` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_Reply_board` (`board`),
+  CONSTRAINT `fk_Reply_board` FOREIGN KEY (`board`) REFERENCES `Board` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,9 +220,9 @@ DROP TABLE IF EXISTS `TTT`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TTT` (
-                       `id` int unsigned NOT NULL AUTO_INCREMENT,
-                       `name` varchar(31) COLLATE utf8mb4_unicode_ci NOT NULL,
-                       PRIMARY KEY (`id`)
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(31) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -243,11 +243,11 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `User` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `email` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `mobile` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                        PRIMARY KEY (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

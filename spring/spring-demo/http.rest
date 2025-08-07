@@ -1,42 +1,6 @@
 @baseUrl=http://localhost:8081
 #@baseUrl=https://a.com
 
-### post - all
-GET {{baseUrl}}/posts
-
-
-### post - add
-POST {{baseUrl}}/posts
-Content-Type: application/json
-
-{
-  "title": "Test Post2",
-  "writer": 1,
-  "content": "Spring"
-}
-
-> {%
-    client.global.set("newerId", response.body.id);
-%}
-
-### post - update
-PATCH {{baseUrl}}/posts/{{newerId}}
-Content-Type: application/json
-
-{
-  "title": "Test Post - update",
-  "userId": 1,
-  "content": "Spring Boot",
-  "createdAt": "2025-07-24T11:08:00"
-}
-
-### post - delete
-DELETE {{baseUrl}}/posts/{{newerId}}
-
-### post - get one
-GET {{baseUrl}}/posts/{{newerId}}
-
-
 ### user - all
 GET {{baseUrl}}/users
 
@@ -46,8 +10,8 @@ POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Tester1",
-  "email": "abc@gmail.com",
+  "name": "Sicoxx",
+  "email": "abcxx@gmail.com",
   "mobile": "010-1234-5678"
 }
 
@@ -60,22 +24,25 @@ PATCH {{baseUrl}}/users/{{newerId}}
 Content-Type: application/json
 
 {
-  "name": "Tester2",
-  "email": "abcde@gmail.com",
+  "name": "Sicoxx2",
+  "email": "abcxx22@gmail.com",
   "mobile": "010-1234-5622"
 }
+
+### user - get one
+GET {{baseUrl}}/users/{{newerId}}
 
 ### user - delete
 DELETE {{baseUrl}}/users/{{newerId}}
 
-### user - get one
-GET {{baseUrl}}/users/{{newerId}}
+### user - get 1
+GET {{baseUrl}}/users/1
 
 ### hello
 GET {{baseUrl}}/hello
 
 ### hi
-GET {{baseUrl}}/hi?name=Tester
+GET {{baseUrl}}/hi?name=Sico
 
 > {%
     client.global.set("greeting", response.body);

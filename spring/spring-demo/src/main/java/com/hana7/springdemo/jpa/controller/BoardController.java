@@ -46,10 +46,10 @@ public class BoardController {
 
 	@GetMapping("/{id}")
 	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "요청에 성공하였습니다."),
-		@ApiResponse(responseCode = "404", description = "해당 게시글을 찾을 수 없습니다.",
-			content = @Content(mediaType = "application/json",
-				schema = @Schema(implementation = ErrorResponseDTO.class)))
+		@ApiResponse(responseCode = "200", description = "요청에 성공하였습니다.", content = @Content(mediaType = "application/json")),
+		@ApiResponse(responseCode = "404",
+			description = "해당 게시글을 찾을 수 없습니다~!",
+			content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponseDTO.class)))
 	})
 	public ResponseEntity<?> getBoard(@PathVariable int id) {
 		BoardResponseDTO board = service.getBoard(id);
@@ -71,4 +71,8 @@ public class BoardController {
 		service.removeBoard(id);
 		return id;
 	}
+
+	// @PostMapping("/{id}/replies")
+	// @PatchMapping("/{id}/replies/{replyId}")
+	// @DeleteMapping("/{id}/replies/{replyId}")
 }

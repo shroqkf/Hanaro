@@ -35,7 +35,7 @@ public class MemberServiceRemoveTest {
 			.build();
 		Mockito.when(dao.findAll(searchCond.getPager()))
 			.thenReturn(List.of(member, member));
-
+		
 		List<MemberDTO> list = service.findAll(searchCond);
 		System.out.println("list = " + list);
 		Assertions.assertEquals(2, list.size());

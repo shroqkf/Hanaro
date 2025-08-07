@@ -23,8 +23,8 @@
 
     <select id="getPost" resultMap="postWithUser">
         select p.*, u.name, u.email, u.mobile
-        from Post p inner join User u on p.writer = u.id
-        where p.id = #{id}
+          from Post p inner join User u on p.writer = u.id
+         where p.id = #{id}
     </select>
 
     <select id="getPostx" resultType="Post">
@@ -36,8 +36,8 @@
     </select>
     <select id="getUsers" resultType="User">
         select u.*
-        from User u inner join Post P
-                               on u.id = p.writer
+          from User u inner join Post P
+                 on u.id = p.writer
     </select>
 
     <select id="getPosts" resultType="Post">
@@ -46,12 +46,12 @@
 
     <update id="update" parameterType="Post">
         update Post
-        set title = #{title}, content = #{content}
-        where id = #{id}
+           set title = #{title}, content = #{content}
+         where id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">
         delete from Post
-        where id = #{id}
+         where id = #{id}
     </delete>
 </mapper>

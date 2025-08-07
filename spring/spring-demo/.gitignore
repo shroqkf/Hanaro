@@ -4,8 +4,8 @@ build/
 logs/
 mysql/
 src/main/generated/
-src/main/resources/tmp
-src/main/resources/upload
+src/main/resources/static/tmp
+src/main/resources/static/upload
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
