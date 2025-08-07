@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +52,37 @@ public class MemberController {
 
 	@Value("${upload.path}")
 	private String uploadPath = "src/main/resources";
+
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+	@GetMapping()
+	@Tag(name = "회원 목록", description = "회원 페이징 목록")
+	@Operation(summary = "/members?page=1...", description = "회원목록")
+	public List<MemberDTO> findMembers(
+		@Parameter(example = """
+			{
+				"page": 1,
+				"size": 5,
+				"searchNickname": "x",
+				"searchEmail:: null,
+				"sortField": "id",
+				"sortDirection" : "asc"
+			}
+			""")
+		SearchCond searchCond) {
+		System.out.println("searchCond = " + searchCond.getPager());
+		return service.findAll(searchCond);
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER')")
+	@GetMapping("{id}")
+	@Tag(name = "회원 상세")
+	@Operation(summary = "/members/2", description = "회원 작성된 글 포함")
+	@Parameters({
+		@Parameter(name = "id", description = "회원 번호", example = "2"),
+	})
+	public MemberDTO getMember(@PathVariable Long id) {
+		return service.findOne(id);
+	}
 
 	@Tag(name = "file upload")
 	@Operation(summary = "Upload POST Member")
@@ -133,35 +165,6 @@ public class MemberController {
 		}
 		System.out.println("resMap = " + resMap);
 		return resMap;
-	}
-
-	@GetMapping()
-	@Tag(name = "회원 목록", description = "회원 페이징 목록")
-	@Operation(summary = "/members?page=1...", description = "회원목록")
-	List<MemberDTO> findMembers(
-		@Parameter(example = """
-			{
-				"page": 1,
-				"size": 5,
-				"searchNickname": "x",
-				"searchEmail:: null,
-				"sortField": "id",
-				"sortDirection" : "asc"
-			}
-			""")
-		SearchCond searchCond) {
-		System.out.println("searchCond = " + searchCond.getPager());
-		return service.findAll(searchCond);
-	}
-
-	@GetMapping("{id}")
-	@Tag(name = "회원 상세")
-	@Operation(summary = "/members/2", description = "회원 작성된 글 포함")
-	@Parameters({
-		@Parameter(name = "id", description = "회원 번호", example = "2"),
-	})
-	MemberDTO getMember(@PathVariable Long id) {
-		return service.findOne(id);
 	}
 
 	@DeleteMapping("{id}")

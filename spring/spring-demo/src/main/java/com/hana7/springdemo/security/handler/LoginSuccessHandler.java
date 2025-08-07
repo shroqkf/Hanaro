@@ -22,7 +22,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		Authentication authentication) throws IOException, ServletException {
 		System.out.println("** SuccessHandler = " + authentication);
 
-		SubscriberDTO dto = (SubscriberDTO)authentication.getPrincipal();
+		SubscriberDTO d = (SubscriberDTO)authentication.getPrincipal();
+		SubscriberDTO dto = new SubscriberDTO(d.getEmail(), "", d.getNickname(), d.isSocial(), d.getRoleNames());
 		Map<String, Object> claims = dto.getClaims();
 		claims.put("accessToken", JwtUtil.generateToken(claims, 10));
 		claims.put("refreshToken", JwtUtil.generateToken(claims, 60 * 24));

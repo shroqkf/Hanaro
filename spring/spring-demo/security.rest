@@ -1,6 +1,5 @@
 @baseUrl=http://localhost:8081
 
-
 ### login - success
 POST {{baseUrl}}/api/subscriber/login
 Content-Type: application/x-www-form-urlencoded
@@ -10,10 +9,24 @@ password = pwd00
 
 > {%
     client.global.set("auth_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
 %}
 
-###
+### refresh token
+GET {{baseUrl}}/api/subscriber/refresh?refreshToken={{refresh_token}}
+Authorization: Bearer {{auth_token}}
+
+> {%
+    client.global.set("auth_token", response.body.accessToken);
+    client.global.set("refresh_token", response.body.refreshToken);
+%}
+
+### token valid test
 GET {{baseUrl}}/members
+Authorization: Bearer {{auth_token}}
+
+### token valid test
+GET {{baseUrl}}/members/2
 Authorization: Bearer {{auth_token}}
 
 ### login - failure

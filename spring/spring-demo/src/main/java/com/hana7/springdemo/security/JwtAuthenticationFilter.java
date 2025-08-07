@@ -3,14 +3,18 @@ package com.hana7.springdemo.security;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hana7.springdemo.jpa.dto.SubscriberDTO;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -44,7 +48,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		try {
 			System.out.println("** JwtAuthenticationFilter.doFilterInternal:" + authHeader.substring(7));
 			Map<String, Object> claims = JwtUtil.validateToken(authHeader.substring(7));
-			System.out.println("claims = " + claims);
+
+			String email = (String)claims.get("email");
+			String nickname = (String)claims.get("nickname");
+			boolean social = (Boolean)claims.get("social");
+			List<String> roleNames = (List<String>)claims.get("roleNames");
+			SubscriberDTO dto = new SubscriberDTO(email, "", nickname, social, roleNames);
+			UsernamePasswordAuthenticationToken authenticationToken = new
+				UsernamePasswordAuthenticationToken(dto, null, dto.getAuthorities());
+
+			// 올바른 Authorization을 저장하여 어디서든 불러올 수 있다!
+			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			response.setContentType("application/json");

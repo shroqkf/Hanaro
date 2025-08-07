@@ -13,10 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.hana7.springdemo.security.JwtAuthenticationFilter;
+import com.hana7.springdemo.security.handler.CustomAccessDeniedHandler;
 import com.hana7.springdemo.security.handler.LoginFailureHandler;
 import com.hana7.springdemo.security.handler.LoginSuccessHandler;
 
@@ -41,7 +44,9 @@ public class CustomSecurityConfig {
 				// .loginProcessingUrl("/api/subscriber/login")
 				.successHandler(new LoginSuccessHandler())
 				.failureHandler(new LoginFailureHandler())
-			);
+			)
+			.exceptionHandling(config -> config.accessDeniedHandler(new CustomAccessDeniedHandler()))
+			.addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
