@@ -1,0 +1,6 @@
+2025-08-11 17:41:20 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - Starting ItemRepositoryTest using Java 17.0.13 with PID 33779 (started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/hanaro)
+2025-08-11 17:41:20 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - No active profile set, falling back to 1 default profile: "default"
+2025-08-11 17:41:23 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - Started ItemRepositoryTest in 3.691 seconds (process running for 4.932)
+2025-08-11 17:51:08 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - Starting ItemRepositoryTest using Java 17.0.13 with PID 41362 (started by noh-chanyoung in /Users/noh-chanyoung/Hanaro/spring/hanaro)
+2025-08-11 17:51:08 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - No active profile set, falling back to 1 default profile: "default"
+2025-08-11 17:51:12 [Test worker] INFO  c.h.h.d.i.r.ItemRepositoryTest - Started ItemRepositoryTest in 4.807 seconds (process running for 8.975)
