@@ -6,15 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table(name = "SalesStats")
+@Table(name = "salesStat")
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@ToString
 public class SalesStats extends BaseEntity {
 
     @Id
@@ -23,7 +25,7 @@ public class SalesStats extends BaseEntity {
 
     // 통계 날짜
     @Column(nullable = false, unique = true)
-    private LocalDate statsDate;
+    private String saledt;
 
     // 총 매출액
     @Column(nullable = false)
@@ -32,4 +34,10 @@ public class SalesStats extends BaseEntity {
     // 총 주문 수
     @Column(nullable = false)
     private Long totalOrderCount;
+
+    public SalesStats(String saledt, Long totalOrderCount, Long totalSalesAmount) {
+        this.saledt = saledt;
+        this.totalOrderCount = totalOrderCount;
+        this.totalSalesAmount = totalSalesAmount;
+    }
 }

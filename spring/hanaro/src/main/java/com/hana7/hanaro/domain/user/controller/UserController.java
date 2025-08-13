@@ -52,8 +52,6 @@ public class UserController {
 		} catch (AuthenticationException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid!");
 		}
-		// String token = userService.login(request);
-		// return ResponseEntity.ok(token);
 	}
 
 	@Operation(summary = "회원 목록 조회 (관리자용)")
@@ -61,6 +59,13 @@ public class UserController {
 	@GetMapping("/list")
 	public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
 		return ResponseEntity.ok(userService.getAllUsers());
+	}
+
+	@Operation(summary = "회원 상세 조회 (관리자용)")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/{id}")
+	public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+		return ResponseEntity.ok(userService.getUserById(id));
 	}
 
 	@Operation(summary = "회원 삭제 (관리자용)")

@@ -1,8 +1,0 @@
-package com.hana7.hanaro.domain.orderItem.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.hana7.hanaro.domain.orderItem.entity.OrderItem;
-
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-}

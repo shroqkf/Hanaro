@@ -9,9 +9,6 @@ import lombok.Getter;
 
 @Getter
 public class OrderRequestDTO {
-	@NotNull
-	private Long userId;
-
 	@NotEmpty
 	private List<Line> items;
 

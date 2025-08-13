@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 
 import com.hana7.hanaro.common.entity.BaseEntity;
-import com.hana7.hanaro.domain.itemImage.entity.ItemImage;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +29,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "item")
 public class Item extends BaseEntity {
 
 	@Id
@@ -40,13 +41,12 @@ public class Item extends BaseEntity {
 	@Column(length = 30, nullable = false, name = "name")
 	private String name;
 
-
 	@Column(nullable = false, name = "price")
 	private Integer price;
 
-	@Column(nullable = false, name = "quantity")
+	@Column(nullable = false, name = "stock")
 	@ColumnDefault("0")
-	private Integer quantity;
+	private Integer stock;
 
 	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
 	@Builder.Default

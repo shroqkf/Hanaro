@@ -6,14 +6,13 @@ import com.hana7.hanaro.domain.item.entity.Item;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.order.entity.Order;
 import com.hana7.hanaro.domain.order.entity.OrderState;
-import com.hana7.hanaro.domain.orderItem.entity.OrderItem;
+import com.hana7.hanaro.domain.order.entity.OrderItem;
 import com.hana7.hanaro.domain.user.entity.User;
 import com.hana7.hanaro.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,12 +35,10 @@ class OrderRepositoryTest extends RepositoryTest {
 
     @BeforeEach
     void setUp() {
-        // Ensure clean state
         orderRepository.deleteAll();
         itemRepository.deleteAll();
         userRepository.deleteAll();
 
-        // Create and save dependencies
         testUser = userRepository.save(User.builder()
                 .name("주문유저")
                 .email("order@gmail.com")
@@ -52,13 +49,12 @@ class OrderRepositoryTest extends RepositoryTest {
         testItem = itemRepository.save(Item.builder()
                 .name("주문테스트상품")
                 .price(15000)
-                .quantity(50)
+                .stock(5)
                 .build());
     }
 
     @Test
     @DisplayName("주문 저장 및 ID로 조회 테스트")
-    @Commit
     void saveAndFindByIdTest() {
         // given
         Order order = Order.builder()
@@ -87,7 +83,6 @@ class OrderRepositoryTest extends RepositoryTest {
         assertThat(foundOrder.getStatus()).isEqualTo(OrderState.PAID);
         assertThat(foundOrder.getOrderItems()).hasSize(1);
         assertThat(foundOrder.getOrderItems().get(0).getItem().getName()).isEqualTo(testItem.getName());
-        print(foundOrder);
     }
 
     @Test
@@ -99,14 +94,17 @@ class OrderRepositoryTest extends RepositoryTest {
                 .totalPrice(1000)
                 .status(OrderState.PAID)
                 .build());
-        // To ensure different creation times
-        try { Thread.sleep(10); } catch (InterruptedException e) {}
+        try { Thread.sleep(10); } catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
         Order order2 = orderRepository.save(Order.builder()
                 .user(testUser)
                 .totalPrice(2000)
                 .status(OrderState.PROCESSING)
                 .build());
-        try { Thread.sleep(10); } catch (InterruptedException e) {}
+        try { Thread.sleep(10); } catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
         Order order3 = orderRepository.save(Order.builder()
                 .user(testUser)
                 .totalPrice(3000)
@@ -123,6 +121,5 @@ class OrderRepositoryTest extends RepositoryTest {
         assertThat(foundOrders).hasSize(2);
         assertThat(foundOrders).extracting(Order::getId).contains(order1.getId(), order3.getId());
         assertThat(foundOrders).extracting(Order::getId).doesNotContain(order2.getId());
-        print(foundOrders);
     }
 }

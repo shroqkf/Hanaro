@@ -39,7 +39,7 @@ public class OrderController {
 	}
 
 	@Operation(summary = "내 주문 내역 조회")
-	@GetMapping("/my-orders")
+	@GetMapping("/my-list")
 	public ResponseEntity<List<OrderResponseDTO>> getMyOrders() {
 		return ResponseEntity.ok(orderService.getUserOrders());
 	}

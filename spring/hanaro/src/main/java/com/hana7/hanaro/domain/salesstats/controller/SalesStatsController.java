@@ -1,6 +1,6 @@
 package com.hana7.hanaro.domain.salesstats.controller;
 
-import com.hana7.hanaro.domain.salesstats.dto.SalesStatsResponseDTO;
+import com.hana7.hanaro.domain.salesstats.dto.AggregatedSalesStatsResponseDTO;
 import com.hana7.hanaro.domain.salesstats.service.SalesStatsService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Tag(name = "매출 통계")
 @RestController
@@ -29,15 +27,12 @@ public class SalesStatsController {
 
     @Operation(summary = "매출 통계 조회 (관리자용)")
     @GetMapping
-    public ResponseEntity<List<SalesStatsResponseDTO>> getSalesStats(
+    public ResponseEntity<AggregatedSalesStatsResponseDTO> getSalesStats(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
-        List<SalesStatsResponseDTO> statsList = salesStatsService.getStatsByDateRange(startDate, endDate)
-                .stream()
-                .map(SalesStatsResponseDTO::fromEntity)
-                .collect(Collectors.toList());
+        AggregatedSalesStatsResponseDTO aggregatedStats = salesStatsService.getStatsByDateRange(startDate, endDate);
 
-        return ResponseEntity.ok(statsList);
+        return ResponseEntity.ok(aggregatedStats);
     }
 }

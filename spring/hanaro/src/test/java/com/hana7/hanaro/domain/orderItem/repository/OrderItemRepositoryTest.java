@@ -6,15 +6,15 @@ import com.hana7.hanaro.domain.item.entity.Item;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.order.entity.Order;
 import com.hana7.hanaro.domain.order.entity.OrderState;
+import com.hana7.hanaro.domain.order.repository.OrderItemRepository;
 import com.hana7.hanaro.domain.order.repository.OrderRepository;
-import com.hana7.hanaro.domain.orderItem.entity.OrderItem;
+import com.hana7.hanaro.domain.order.entity.OrderItem;
 import com.hana7.hanaro.domain.user.entity.User;
 import com.hana7.hanaro.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -55,19 +55,18 @@ class OrderItemRepositoryTest extends RepositoryTest {
         testItem = itemRepository.save(Item.builder()
                 .name("주문아이템테스트상품")
                 .price(99000)
-                .quantity(10)
+                .stock(10)
                 .build());
 
         testOrder = orderRepository.save(Order.builder()
                 .user(testUser)
-                .totalPrice(0) // Assuming total price is calculated elsewhere
+                .totalPrice(0)
                 .status(OrderState.PAID)
                 .build());
     }
 
     @Test
     @DisplayName("주문 아이템 저장 및 ID로 조회 테스트")
-    @Commit
     void saveAndFindByIdTest() {
         // given
         OrderItem orderItem = OrderItem.builder()
@@ -88,6 +87,5 @@ class OrderItemRepositoryTest extends RepositoryTest {
         assertThat(foundOrderItem.getItem().getName()).isEqualTo(testItem.getName());
         assertThat(foundOrderItem.getPrice()).isEqualTo(99000);
         assertThat(foundOrderItem.getQuantity()).isEqualTo(1);
-        print(foundOrderItem);
     }
 }

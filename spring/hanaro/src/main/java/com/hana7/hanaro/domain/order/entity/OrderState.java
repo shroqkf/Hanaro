@@ -1,5 +1,7 @@
 package com.hana7.hanaro.domain.order.entity;
 
+import com.hana7.hanaro.common.exception.NotFoundException;
+
 public enum OrderState {
 	PAID, PREPARING, PROCESSING, COMPLETED;
 
@@ -8,7 +10,7 @@ public enum OrderState {
 			case PAID -> PREPARING;
 			case PREPARING -> PROCESSING;
 			case PROCESSING -> COMPLETED;
-			default -> throw new IllegalStateException("Cannot determine next status for: " + this);
+			default -> throw new NotFoundException("다음 상태를 찾지 못했습니다: " + this);
 		};
 	}
 

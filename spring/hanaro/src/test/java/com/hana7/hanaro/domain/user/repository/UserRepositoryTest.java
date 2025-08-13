@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,17 +32,15 @@ class UserRepositoryTest extends RepositoryTest {
 
 	@Test
 	@DisplayName("사용자 저장 및 ID로 조회 테스트")
-	@Commit
 	void saveAndFindByIdTest() {
 		// when: 사용자를 저장
 		User savedUser = userRepository.save(testUser);
 
-		// then: 저장된 사용자를 ID로 다시 조회하여 검증
+		// then: 저장된 사용자를 ID로 다시 조회하여 확인
 		User foundUser = userRepository.findById(savedUser.getId()).orElseThrow();
 
 		assertThat(foundUser.getId()).isEqualTo(savedUser.getId());
 		assertThat(foundUser.getEmail()).isEqualTo(testUser.getEmail());
-		print(foundUser);
 	}
 
 	@Test
@@ -54,9 +52,8 @@ class UserRepositoryTest extends RepositoryTest {
 		// when: 이메일로 사용자를 조회
 		User foundUser = userRepository.findByEmail(testUser.getEmail()).orElseThrow();
 
-		// then: 조회된 사용자가 일치하는지 검증
+		// then: 조회된 사용자가 일치하는지 확인
 		assertThat(foundUser.getEmail()).isEqualTo(testUser.getEmail());
-		print(foundUser);
 	}
 
 	@Test
@@ -67,8 +64,10 @@ class UserRepositoryTest extends RepositoryTest {
 
 		// when & then
 		// 존재하는 이메일 확인
-		assertTrue(userRepository.existsByEmail("test@gmail.com"));
+		assertTrue(userRepository.existsByEmail("user@gmail.com"));
 		// 존재하지 않는 이메일 확인
 		assertFalse(userRepository.existsByEmail("wrong@gmail.com"));
 	}
+
+
 }

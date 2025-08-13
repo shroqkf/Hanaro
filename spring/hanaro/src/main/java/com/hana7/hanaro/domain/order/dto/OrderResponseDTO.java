@@ -1,6 +1,5 @@
 package com.hana7.hanaro.domain.order.dto;
 
-import com.hana7.hanaro.domain.orderItem.dto.OrderItemResponseDTO;
 import com.hana7.hanaro.domain.order.entity.OrderState;
 import lombok.Builder;
 import lombok.Data;

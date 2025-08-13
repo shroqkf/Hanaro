@@ -2,8 +2,6 @@ package com.hana7.hanaro.domain.cart.dto;
 
 import java.util.List;
 
-import com.hana7.hanaro.domain.cartItem.dto.CartItemUpdateRequestDTO;
-
 import lombok.Builder;
 import lombok.Data;
 

@@ -8,22 +8,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hana7.hanaro.common.exception.CartBadRequestException;
 import com.hana7.hanaro.common.exception.CartNotFoundException;
+import com.hana7.hanaro.common.exception.OrderCreationException;
 import com.hana7.hanaro.common.security.exception.UserNotFoundException;
 import com.hana7.hanaro.domain.cart.entity.Cart;
+import com.hana7.hanaro.domain.cart.entity.CartItem;
 import com.hana7.hanaro.domain.cart.repository.CartRepository;
-import com.hana7.hanaro.domain.cartItem.entity.CartItem;
-import com.hana7.hanaro.domain.cartItem.repository.CartItemRepository;
+import com.hana7.hanaro.domain.cart.repository.CartItemRepository;
 import com.hana7.hanaro.domain.order.entity.Order;
+import com.hana7.hanaro.domain.order.entity.OrderItem;
 import com.hana7.hanaro.domain.order.entity.OrderState;
 import com.hana7.hanaro.domain.order.repository.OrderRepository;
-import com.hana7.hanaro.domain.orderItem.entity.OrderItem;
-import com.hana7.hanaro.domain.orderItem.repository.OrderItemRepository;
+import com.hana7.hanaro.domain.order.repository.OrderItemRepository;
 import com.hana7.hanaro.domain.user.entity.User;
 import com.hana7.hanaro.domain.user.repository.UserRepository;
 
 import com.hana7.hanaro.domain.order.dto.OrderResponseDTO;
-import com.hana7.hanaro.domain.orderItem.dto.OrderItemResponseDTO;
+import com.hana7.hanaro.domain.order.dto.OrderItemResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +48,9 @@ public class OrderService {
 		Cart cart= cartRepository.findByUser(user).orElseThrow(CartNotFoundException::new);
 
 		List<CartItem> cartItems = cartItemRepository.findByCart(cart);
+		if (cartItems.isEmpty()) {
+			throw new CartBadRequestException();
+		}
 		int totalPrice=cartItems.stream().mapToInt(item->{
 			int price = item.getItem().getPrice();
 			int quantity = item.getQuantity();
@@ -53,16 +58,17 @@ public class OrderService {
 		}).sum();
 
 		// 새 주문 생성
-		// TODO: exception 처리
 		Order order = Order.builder()
-			.user(user)
 			.status(OrderState.PAID)
 			.totalPrice(totalPrice)
 			.build();
 
-		// foreach 문 속 final 객체
-		// TODO: exception 처리
-		Order finalOrder=orderRepository.save(order);
+		Order finalOrder;
+		try {
+			finalOrder = orderRepository.save(order);
+		} catch (Exception e) {
+			throw new OrderCreationException();
+		}
 
 		cartItems.forEach(cartItem->{
 			OrderItem orderItem = OrderItem.builder()
@@ -71,14 +77,12 @@ public class OrderService {
 				.quantity(cartItem.getQuantity())
 				.price(cartItem.getItem().getPrice())
 				.build();
-			orderItemRepository.save(orderItem);
+			try {
+				orderItemRepository.save(orderItem);
+			} catch (Exception e) {
+				throw new OrderCreationException();
+			}
 		});
-	}
-
-	// 모든 주문 조회 (관리자용)
-	public List<OrderResponseDTO> getAllOrders() {
-		List<Order> orders = orderRepository.findAll();
-		return getOrderResponseDTOS(orders);
 	}
 
 	private List<OrderResponseDTO> getOrderResponseDTOS(List<Order> orders) {
@@ -102,6 +106,12 @@ public class OrderService {
 				.orderItems(orderItemDTOs)
 				.build();
 		}).collect(Collectors.toList());
+	}
+
+	// 모든 주문 조회 (관리자용)
+	public List<OrderResponseDTO> getAllOrders() {
+		List<Order> orders = orderRepository.findAll();
+		return getOrderResponseDTOS(orders);
 	}
 
 	// 사용자 주문 내역 조회

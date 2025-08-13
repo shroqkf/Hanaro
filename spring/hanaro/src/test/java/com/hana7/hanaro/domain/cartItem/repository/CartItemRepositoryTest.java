@@ -3,8 +3,9 @@ package com.hana7.hanaro.domain.cartItem.repository;
 import com.hana7.hanaro.common.RepositoryTest;
 import com.hana7.hanaro.domain.UserRole;
 import com.hana7.hanaro.domain.cart.entity.Cart;
+import com.hana7.hanaro.domain.cart.repository.CartItemRepository;
 import com.hana7.hanaro.domain.cart.repository.CartRepository;
-import com.hana7.hanaro.domain.cartItem.entity.CartItem;
+import com.hana7.hanaro.domain.cart.entity.CartItem;
 import com.hana7.hanaro.domain.item.entity.Item;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.user.entity.User;
@@ -39,13 +40,11 @@ class CartItemRepositoryTest extends RepositoryTest {
 
     @BeforeEach
     void setUp() {
-        // Ensure clean state
         cartItemRepository.deleteAll();
         cartRepository.deleteAll();
         itemRepository.deleteAll();
         userRepository.deleteAll();
 
-        // Create and save dependencies
         testUser = userRepository.save(User.builder()
                 .name("장바구니유저")
                 .email("cart@gmail.com")
@@ -56,7 +55,7 @@ class CartItemRepositoryTest extends RepositoryTest {
         testItem = itemRepository.save(Item.builder()
                 .name("장바구니테스트상품")
                 .price(25000)
-                .quantity(30)
+                .stock(30)
                 .build());
 
         testCart = cartRepository.save(Cart.builder()
@@ -67,7 +66,6 @@ class CartItemRepositoryTest extends RepositoryTest {
 
     @Test
     @DisplayName("장바구니 아이템 저장 및 ID로 조회 테스트")
-    @Commit
     void saveAndFindByIdTest() {
         // given
         CartItem cartItem = CartItem.builder()
@@ -86,7 +84,6 @@ class CartItemRepositoryTest extends RepositoryTest {
         assertThat(foundCartItem.getCart().getId()).isEqualTo(testCart.getId());
         assertThat(foundCartItem.getItem().getName()).isEqualTo(testItem.getName());
         assertThat(foundCartItem.getQuantity()).isEqualTo(2);
-        print(foundCartItem);
     }
 
     @Test
@@ -99,7 +96,7 @@ class CartItemRepositoryTest extends RepositoryTest {
                 .quantity(1)
                 .build());
 
-        Item anotherItem = itemRepository.save(Item.builder().name("다른상품").price(1000).quantity(10).build());
+        Item anotherItem = itemRepository.save(Item.builder().name("다른상품").price(1000).stock(10).build());
         CartItem cartItem2 = cartItemRepository.save(CartItem.builder()
                 .cart(testCart)
                 .item(anotherItem)
@@ -112,6 +109,5 @@ class CartItemRepositoryTest extends RepositoryTest {
         // then
         assertThat(cartItems).hasSize(2);
         assertThat(cartItems).extracting(CartItem::getId).contains(cartItem1.getId(), cartItem2.getId());
-        print(cartItems);
     }
 }

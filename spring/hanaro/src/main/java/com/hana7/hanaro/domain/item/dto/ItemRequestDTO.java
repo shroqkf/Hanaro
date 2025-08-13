@@ -24,7 +24,7 @@ public class ItemRequestDTO {
 	private int price;
 
 	@NotNull
-	private int quantity;
+	private int stock;
 
 	private List<MultipartFile> images;
 
@@ -32,7 +32,7 @@ public class ItemRequestDTO {
 		return Item.builder()
 			.name(name)
 			.price(price)
-			.quantity(quantity)
+			.stock(stock)
 			.build();
 	}
 

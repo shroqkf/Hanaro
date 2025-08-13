@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
-import org.apache.coyote.BadRequestException;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hana7.hanaro.domain.item.dto.ItemRequestDTO;
 import com.hana7.hanaro.domain.item.dto.ItemResponseDTO;
-import com.hana7.hanaro.common.exception.NotFoundException;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.item.service.ItemService;
 
@@ -83,7 +81,7 @@ public class ItemController {
 	}
 
 	@Operation(summary = "재고 수량 조정 (관리자용)")
-	@PatchMapping(value = "{id}/quantity")
+	@PatchMapping(value = "{id}/stock")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> updateItemQuantity(
 		@PathVariable Long id,
@@ -96,7 +94,7 @@ public class ItemController {
 	@Operation(summary = "상품 삭제 (관리자용)")
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<Boolean> deleteItem(@PathVariable Long id) throws NotFoundException, BadRequestException {
+	public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
 		itemService.deleteItem(id);
 		return ResponseEntity.ok().build();
 

@@ -9,5 +9,4 @@ class HanaroApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

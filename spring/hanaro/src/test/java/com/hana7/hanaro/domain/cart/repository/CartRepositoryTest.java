@@ -44,7 +44,6 @@ class CartRepositoryTest extends RepositoryTest {
 
 		assertThat(savedCart.getId()).isNotNull();
 		assertThat(savedCart.getUser().getId()).isEqualTo(testUser.getId());
-		print(savedCart);
 	}
 
 	@Test
@@ -59,6 +58,5 @@ class CartRepositoryTest extends RepositoryTest {
 
 		assertThat(foundCart.getId()).isEqualTo(newCart.getId());
 		assertThat(foundCart.getUser().getEmail()).isEqualTo(testUser.getEmail());
-		print(foundCart);
 	}
 }

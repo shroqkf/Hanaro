@@ -4,17 +4,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.hana7.hanaro.common.exception.NotFoundException;
 import com.hana7.hanaro.common.security.JwtUtil;
+import com.hana7.hanaro.common.security.exception.UserNotFoundException;
 import com.hana7.hanaro.domain.UserRole;
 import com.hana7.hanaro.domain.cart.entity.Cart;
 import com.hana7.hanaro.domain.cart.repository.CartRepository;
+import com.hana7.hanaro.domain.order.entity.Order;
+import com.hana7.hanaro.domain.order.repository.OrderRepository;
 import com.hana7.hanaro.domain.user.dto.UserLoginRequestDTO;
 import com.hana7.hanaro.domain.user.dto.UserRequestDTO;
 import com.hana7.hanaro.domain.user.dto.UserResponseDTO;
 import com.hana7.hanaro.domain.user.entity.User;
 import com.hana7.hanaro.domain.user.repository.UserRepository;
 
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +32,7 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final CartRepository cartRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final OrderRepository orderRepository;
 
 	// 회원가입
 	public Long signUp(UserRequestDTO request) {
@@ -58,10 +62,10 @@ public class UserService {
 	// 로그인
 	public String login(UserLoginRequestDTO request) {
 		User user = userRepository.findByEmail(request.getName())
-			.orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
+			.orElseThrow(() -> new NotFoundException("가입되지 않은 이메일입니다."));
 
 		if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-			throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+			throw new NotFoundException("잘못된 비밀번호입니다.");
 		}
 
 		Map<String, Object> claims = Map.of(
@@ -76,9 +80,9 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public UserResponseDTO findUserById(Long id) {
+	public UserResponseDTO getUserById(Long id) {
 		User user = userRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다. id=" + id));
+			.orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다. id=" + id));
 
 		return UserResponseDTO.from(user);
 	}
@@ -93,9 +97,9 @@ public class UserService {
 
 	// 사용자 삭제 (관리자용)
 	public void deleteUser(Long id) {
-		if (!userRepository.existsById(id)) {
-			throw new IllegalArgumentException("삭제할 사용자를 찾을 수 없습니다. id=" + id);
-		}
-		userRepository.deleteById(id);
+		User userToDelete = userRepository.findById(id)
+			.orElseThrow(UserNotFoundException::new);
+
+		userRepository.delete(userToDelete);
 	}
 }

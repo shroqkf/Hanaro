@@ -14,10 +14,11 @@ import com.hana7.hanaro.domain.cart.dto.CartRequestDTO;
 import com.hana7.hanaro.domain.cart.dto.CartResponseDTO;
 import com.hana7.hanaro.domain.cart.dto.CartUpdateRequestDTO;
 import com.hana7.hanaro.domain.cart.service.CartService;
-import com.hana7.hanaro.domain.cartItem.dto.CartItemDeleteRequestDTO;
+import com.hana7.hanaro.domain.cart.dto.CartItemDeleteRequestDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "장바구니")
@@ -29,7 +30,7 @@ public class CartController {
 
 	@Operation(summary = "장바구니 담기")
 	@PostMapping
-	public ResponseEntity<?> addCartItem(@RequestBody CartRequestDTO cartRequestDTO) throws
+	public ResponseEntity<?> addCartItem(@RequestBody @Valid CartRequestDTO cartRequestDTO) throws
 		CartItemInsertBadRequestException {
 		cartService.addItem(cartRequestDTO);
 		return ResponseEntity.ok().build();
@@ -43,7 +44,7 @@ public class CartController {
 
 	@Operation(summary = "장바구니 수정")
 	@PatchMapping
-	public ResponseEntity<?> updateCart(@RequestBody CartUpdateRequestDTO cartUpdateRequestDTO) {
+	public ResponseEntity<?> updateCart(@RequestBody @Valid CartUpdateRequestDTO cartUpdateRequestDTO) {
 		cartService.updateCart(cartUpdateRequestDTO);
 		return ResponseEntity.ok().build();
 	}

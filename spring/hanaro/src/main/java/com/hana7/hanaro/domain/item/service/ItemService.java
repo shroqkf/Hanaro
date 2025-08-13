@@ -1,15 +1,20 @@
 package com.hana7.hanaro.domain.item.service;
 
+import com.hana7.hanaro.domain.cart.entity.CartItem;
+import com.hana7.hanaro.domain.cart.repository.CartItemRepository;
 import com.hana7.hanaro.domain.item.dto.ItemDetailResponseDTO;
 import com.hana7.hanaro.domain.item.dto.ItemRequestDTO;
 import com.hana7.hanaro.domain.item.dto.ItemResponseDTO;
 import com.hana7.hanaro.domain.item.entity.Item;
-import com.hana7.hanaro.domain.itemImage.entity.ItemImage;
 import com.hana7.hanaro.common.exception.ItemDeleteBadRequestException;
 import com.hana7.hanaro.common.exception.ItemNotFoundException;
-import com.hana7.hanaro.common.exception.UserNotFoundException;
-import com.hana7.hanaro.domain.itemImage.repository.ItemImageRepository;
+import com.hana7.hanaro.domain.item.entity.ItemImage;
+import com.hana7.hanaro.domain.item.repository.ItemImageRepository;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
+import com.hana7.hanaro.domain.order.entity.OrderItem;
+import com.hana7.hanaro.domain.order.repository.OrderItemRepository;
+import com.hana7.hanaro.domain.user.repository.UserRepository;
+
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +41,8 @@ import java.util.UUID;
 public class ItemService {
 	private final ItemRepository itemRepository;
 	private final ItemImageRepository itemImageRepository;
+	private final CartItemRepository cartItemRepository;
+	private final OrderItemRepository orderItemRepository;
 
 	@Value("${upload.path}")
 	private String uploadPath = "src/main/resources";
@@ -53,7 +60,7 @@ public class ItemService {
 	}
 
 	public ItemDetailResponseDTO findItemDetailById(Long id) {
-		Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+		Item item = itemRepository.findByIdWithImages(id).orElseThrow(ItemNotFoundException::new);
 		return toDetailDto(item);
 	}
 
@@ -63,11 +70,11 @@ public class ItemService {
 		itemRepository.save(modifyItem(item, itemRequestDTO));
 	}
 	public void deleteItem (Long itemId) throws ItemDeleteBadRequestException {
-		if(!itemRepository.existsById(itemId)) {
-			throw new ItemNotFoundException();
-		}
+		Item itemToDelete = itemRepository.findById(itemId)
+			.orElseThrow(ItemNotFoundException::new);
+
 		try {
-			itemRepository.deleteById(itemId);
+			itemRepository.delete(itemToDelete);
 		} catch(Exception e) {
 			throw new ItemDeleteBadRequestException();
 		}
@@ -78,14 +85,14 @@ public class ItemService {
 		return item.toBuilder()
 			.name(itemRequestDTO.getName())
 			.price(itemRequestDTO.getPrice())
-			.quantity(itemRequestDTO.getQuantity())
+			.stock(itemRequestDTO.getStock())
 			.build();
 	}
 	public void modifyItemQuantity(Long itemId, int quantity) {
 		Item item = itemRepository.findById(itemId)
 			.orElseThrow(ItemNotFoundException::new);
 
-		item.setQuantity(quantity);
+		item.setStock(quantity);
 	}
 
 	private static ItemResponseDTO toDto(Item items) {
@@ -93,7 +100,7 @@ public class ItemService {
 			.id(items.getId())
 			.name(items.getName())
 			.price(items.getPrice())
-			.quantity(items.getQuantity())
+			.stock(items.getStock())
 			.build();
 	}
 
@@ -129,7 +136,6 @@ public class ItemService {
 					file.transferTo(upfilePath);
 
 					// ItemImage 객체로 저장하기
-
 					itemImages.add(ItemImage.builder()
 						.item(item)
 						.orgName(orgFname)

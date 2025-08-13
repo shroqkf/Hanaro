@@ -13,6 +13,6 @@ public class ItemResponseDTO {
 
 	private int price;
 
-	private int quantity;
+	private int stock;
 
 }

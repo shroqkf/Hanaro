@@ -11,5 +11,4 @@ public class HanaroApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HanaroApplication.class, args);
 	}
-
 }

@@ -8,11 +8,11 @@ import com.hana7.hanaro.domain.cart.dto.CartRequestDTO;
 import com.hana7.hanaro.domain.cart.dto.CartResponseDTO;
 import com.hana7.hanaro.domain.cart.dto.CartUpdateRequestDTO;
 import com.hana7.hanaro.domain.cart.entity.Cart;
+import com.hana7.hanaro.domain.cart.entity.CartItem;
 import com.hana7.hanaro.domain.cart.repository.CartRepository;
-import com.hana7.hanaro.domain.cartItem.dto.CartItemDeleteRequestDTO;
-import com.hana7.hanaro.domain.cartItem.dto.CartItemResponseDTO;
-import com.hana7.hanaro.domain.cartItem.entity.CartItem;
-import com.hana7.hanaro.domain.cartItem.repository.CartItemRepository;
+import com.hana7.hanaro.domain.cart.dto.CartItemDeleteRequestDTO;
+import com.hana7.hanaro.domain.cart.dto.CartItemResponseDTO;
+import com.hana7.hanaro.domain.cart.repository.CartItemRepository;
 import com.hana7.hanaro.domain.item.entity.Item;
 import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.user.entity.User;
@@ -38,7 +38,9 @@ public class CartService {
 
 	// 장바구니 담기
 	public void addItem(CartRequestDTO cartRequestDTO) throws CartItemInsertBadRequestException {
-		User user = userRepository.findById(cartRequestDTO.getUserId()).orElseThrow(UserNotFoundException::new);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		User user = userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
 		Cart cart = cartRepository.findByUser(user).orElse(null);
 
 		// user가 cart를 가지고 있지 않다면 만들어주기
@@ -74,7 +76,7 @@ public class CartService {
 		String userName = authentication.getName();
 
 		User user = userRepository.findByEmail(userName).orElseThrow(UserNotFoundException::new);
-		Cart cart = cartRepository.findByUser(user).orElse(null);
+		Cart cart = cartRepository.findByUserIdWithCartItemsAndItems(user.getId()).orElse(null);
 
 		if (cart == null) {
 			return CartResponseDTO.builder()
@@ -114,8 +116,7 @@ public class CartService {
 				throw new CartNotFoundException();
 			}
 
-			cartItem=cartItem.toBuilder()
-				.quantity(i.getQuantity()).build();
+			cartItem=cartItem.toBuilder().build();
 			cartItemRepository.save(cartItem);
 		});
 	}
@@ -124,7 +125,6 @@ public class CartService {
 	public void deleteCart(CartItemDeleteRequestDTO cartItemDeleteRequestDTO) {
 		List<CartItem> items=cartItemRepository.findAllById(cartItemDeleteRequestDTO.getCartItemIds());
 
-		// TODO : exception 처리
 		cartItemRepository.deleteAll(items);
 	}
 }
