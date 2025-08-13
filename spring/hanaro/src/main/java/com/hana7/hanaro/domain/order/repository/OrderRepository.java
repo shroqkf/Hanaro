@@ -23,7 +23,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT FUNCTION('DATE_FORMAT', o.createdAt, '%Y%m%d'), COUNT(o.id), SUM(oi.price * oi.quantity) " +
            "FROM Order o JOIN o.orderItems oi " +
-           "WHERE FUNCTION('DATE_FORMAT', o.createdAt, '%Y%m%d') = :saledt")
+           "WHERE FUNCTION('DATE_FORMAT', o.createdAt, '%Y%m%d') = :saledt " +
+           "GROUP BY FUNCTION('DATE_FORMAT', o.createdAt, '%Y%m%d')")
     Object[] getTodayStat(@Param("saledt") String saledt);
 
     @Query("SELECT oi FROM OrderItem oi JOIN oi.order o " +

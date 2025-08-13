@@ -30,8 +30,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDTO(ex.getMessage(), String.valueOf(ex.getHttpStatus().value())), ex.getHttpStatus());
     }
 
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleAccessDeniedException(org.springframework.security.access.AccessDeniedException ex) {
+        return new ResponseEntity<>(new ErrorResponseDTO("접근 권한이 없습니다.", "403 FORBIDDEN"), HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> handleGeneralException(Exception ex) {
+    public ResponseEntity<ErrorResponseDTO> handleGeneralException() {
         return new ResponseEntity<>(new ErrorResponseDTO("예기치 못한 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

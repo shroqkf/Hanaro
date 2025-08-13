@@ -2,6 +2,7 @@ package com.hana7.hanaro.domain.user.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -35,7 +36,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(toBuilder=true)
-@Table(name = "user")
+@Table(name = "user", indexes = @jakarta.persistence.Index(name = "idx_user_deleted_at", columnList = "deletedAt"))
 public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,12 +56,14 @@ public class User extends BaseEntity {
 	@Email
 	private String email;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password", nullable = false, length = 100)
 	private String password;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private LocalDateTime deletedAt;
+
+	@OneToOne(mappedBy = "user")
 	private Cart cart;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();
 }

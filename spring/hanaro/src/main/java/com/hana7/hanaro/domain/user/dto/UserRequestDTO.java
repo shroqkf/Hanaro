@@ -1,8 +1,5 @@
 package com.hana7.hanaro.domain.user.dto;
 
-import com.hana7.hanaro.domain.UserRole;
-import com.hana7.hanaro.domain.user.entity.User;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,13 +17,4 @@ public class UserRequestDTO {
 
 	@NotBlank(message = "닉네임은 필수 입력값입니다.")
 	private String name;
-
-	public User toEntity(String encodedPassword) {
-		return User.builder()
-			.name(name)
-			.email(email)
-			.password(encodedPassword)
-			.role(UserRole.ROLE_USER)
-			.build();
-	}
 }

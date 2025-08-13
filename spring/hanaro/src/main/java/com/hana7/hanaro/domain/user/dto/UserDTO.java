@@ -9,9 +9,9 @@ import java.util.*;
 @Getter
 public class UserDTO extends User {
 
-	private String email;
-	private String nickname;
-	private List<String> roleNames = new ArrayList<>();
+	private final String email;
+	private final String nickname;
+	private final List<String> roleNames;
 
 
 	public UserDTO(String email, String password, String nickname, List<String> roleNames) {

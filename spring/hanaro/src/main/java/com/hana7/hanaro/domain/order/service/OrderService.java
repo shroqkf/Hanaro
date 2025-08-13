@@ -40,49 +40,67 @@ public class OrderService {
 	private final OrderItemRepository orderItemRepository;
 
 	// 주문 생성
-	public void createOrder(){
+	public void createOrder() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userName = authentication.getName();
 		User user = userRepository.findByEmail(userName).orElseThrow(UserNotFoundException::new);
 
-		Cart cart= cartRepository.findByUser(user).orElseThrow(CartNotFoundException::new);
+		// 1. Fetch Cart with all items
+		Cart cart = cartRepository.findByUser(user).orElseThrow(CartNotFoundException::new);
+		List<CartItem> cartItems = cart.getCartItems();
 
-		List<CartItem> cartItems = cartItemRepository.findByCart(cart);
+		// 2. Check for Empty Cart
 		if (cartItems.isEmpty()) {
 			throw new CartBadRequestException();
 		}
-		int totalPrice=cartItems.stream().mapToInt(item->{
-			int price = item.getItem().getPrice();
-			int quantity = item.getQuantity();
-			return price * quantity;
-		}).sum();
 
-		// 새 주문 생성
-		Order order = Order.builder()
-			.status(OrderState.PAID)
-			.totalPrice(totalPrice)
-			.build();
+		// 3. Create OrderItems, check and deduct stock
+		List<OrderItem> orderItems = new java.util.ArrayList<>();
+		int totalPrice = 0;
 
-		Order finalOrder;
-		try {
-			finalOrder = orderRepository.save(order);
-		} catch (Exception e) {
-			throw new OrderCreationException();
+		for (CartItem cartItem : cartItems) {
+			com.hana7.hanaro.domain.item.entity.Item item = cartItem.getItem();
+			int requestedQuantity = cartItem.getQuantity();
+
+			// 3a. Check stock
+			if (item.getStock() < requestedQuantity) {
+				throw new OrderCreationException("재고가 부족합니다. 상품명: " + item.getName());
+			}
+
+			// 3b. Deduct stock
+			item.setStock(item.getStock() - requestedQuantity);
+
+			// 3c. Create OrderItem
+			OrderItem orderItem = OrderItem.builder()
+				.item(item)
+				.quantity(requestedQuantity)
+				.price(item.getPrice()) // Use the current item price
+				.build();
+			orderItems.add(orderItem);
+
+			// 3d. Calculate total price
+			totalPrice += item.getPrice() * requestedQuantity;
 		}
 
-		cartItems.forEach(cartItem->{
-			OrderItem orderItem = OrderItem.builder()
-				.order(finalOrder)
-				.item(cartItem.getItem())
-				.quantity(cartItem.getQuantity())
-				.price(cartItem.getItem().getPrice())
-				.build();
-			try {
-				orderItemRepository.save(orderItem);
-			} catch (Exception e) {
-				throw new OrderCreationException();
-			}
-		});
+		// 4. Build the Order
+		Order order = Order.builder()
+			.user(user)
+			.status(OrderState.PAID)
+			.totalPrice(totalPrice)
+			.orderItems(new java.util.ArrayList<>()) // Initialize list
+			.build();
+
+		// Associate OrderItems with the Order
+		for(OrderItem orderItem : orderItems) {
+			order.getOrderItems().add(orderItem);
+			orderItem.setOrder(order);
+		}
+
+		// 5. Save the Order (cascades to OrderItems)
+		orderRepository.save(order);
+
+		// 6. Clear the cart
+		cartItemRepository.deleteAll(cartItems);
 	}
 
 	private List<OrderResponseDTO> getOrderResponseDTOS(List<Order> orders) {

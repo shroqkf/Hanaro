@@ -1,7 +1,20 @@
+SET FOREIGN_KEY_CHECKS = 0;
+truncate table user;
+truncate table item;
+truncate table itemImage;
+truncate table orders;
+truncate table orderItem;
+truncate table cart;
+truncate table cartItem;
+truncate table salesStat;
+truncate table salesStatItem;
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- 1) USER: 관리자/일반 사용자
 INSERT INTO User (name, email, password, role) VALUES
     ('관리자', 'admin@gmail.com', '$2a$10$2fBR8j2ogTzDIA268yLalO2wj5LPewdOdZkpEHDvKGzKUCXGSBfT.', 'ROLE_ADMIN'),
-    ('사용자', 'user@gmail.com',  '$2a$10$txqsT7NtPezqohSE95M9wuh/7p7jRmDmZJNgLIOcnupT.Nh.5ru/O', 'ROLE_USER');
+    ('사용자', 'user@gmail.com',  '$2a$10$txqsT7NtPezqohSE95M9wuh/7p7jRmDmZJNgLIOcnupT.Nh.5ru/O', 'ROLE_USER'),
+    ('사용자2', 'user2@gmail.com',  '$2a$10$txqsT7NtPezqohSE95M9wuh/7p7jRmDmZJNgLIOcnupT.Nh.5ru/O', 'ROLE_USER');
 
 -- 2) ITEM
 INSERT INTO Item (price, stock, name) VALUES
@@ -11,8 +24,8 @@ INSERT INTO Item (price, stock, name) VALUES
 
 -- 3) ORDER: 오늘/어제 데이터(매출 통계용)
 INSERT INTO Orders (totalPrice, userId, status) VALUES
-    (24000, 2, 'PAID'),
-    (100000, 2, 'COMPLETED');
+    (24000, 3, 'PAID'),
+    (100000, 3, 'COMPLETED');
 
 -- 4) ORDER_ITEMS: 주문별 상세
 INSERT INTO OrderItem (price, quantity, orderId, productId) VALUES
@@ -22,7 +35,7 @@ INSERT INTO OrderItem (price, quantity, orderId, productId) VALUES
 
 -- 5) CART: 사용자 장바구니
 INSERT INTO Cart (userId) VALUES
-    (2);   -- 사용자의 장바구니에 총 3개의 상품 등록
+    (3);   -- 사용자의 장바구니에 총 3개의 상품 등록
 
 -- 6) CART_ITEMS: 장바구니별 상세
 INSERT INTO CartItem (quantity,cartId, productId ) VALUES

@@ -47,16 +47,21 @@ public class ItemService {
 	@Value("${upload.path}")
 	private String uploadPath = "src/main/resources";
 
-	public void insertItem(ItemRequestDTO itemRequestDTO) {
+	public Item insertItem(ItemRequestDTO itemRequestDTO) {
 		Item item = itemRepository.save(itemRequestDTO.toEntity());
 
 		saveFiles(itemRequestDTO.getImages(),item);
+		return item;
 	}
 	public Page<ItemResponseDTO> findItem(String keyword, Pageable pageable) {
-		Page<Item>items = itemRepository.findByNameContainsIgnoreCase(keyword, pageable);
+		Page<Item> items;
+		if (keyword == null || keyword.trim().isEmpty()) {
+			items = itemRepository.findAll(pageable);
+		} else {
+			items = itemRepository.findByNameContainsIgnoreCase(keyword, pageable);
+		}
 
 		return items.map(ItemService::toDto);
-
 	}
 
 	public ItemDetailResponseDTO findItemDetailById(Long id) {
@@ -93,6 +98,7 @@ public class ItemService {
 			.orElseThrow(ItemNotFoundException::new);
 
 		item.setStock(quantity);
+		itemRepository.save(item);
 	}
 
 	private static ItemResponseDTO toDto(Item items) {
@@ -109,6 +115,7 @@ public class ItemService {
 			.id(item.getId())
 			.itemName(item.getName())
 			.price(item.getPrice())
+			.stock(item.getStock())
 			.imageUrls(item.getImages().stream()
 				.map(image -> "/upload/" + image.getSaveDir() + "/" + image.getSaveName())
 				.collect(Collectors.toList()))

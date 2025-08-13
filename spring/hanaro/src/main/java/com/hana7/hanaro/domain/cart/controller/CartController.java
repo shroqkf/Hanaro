@@ -21,10 +21,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.log4j.Log4j2;
+
 @Tag(name = "장바구니")
 @RestController
 @RequestMapping("/carts")
 @RequiredArgsConstructor
+@Log4j2
 public class CartController {
 	private final CartService cartService;
 
@@ -45,6 +48,8 @@ public class CartController {
 	@Operation(summary = "장바구니 수정")
 	@PatchMapping
 	public ResponseEntity<?> updateCart(@RequestBody @Valid CartUpdateRequestDTO cartUpdateRequestDTO) {
+		log.info("------ updateCart controller start ------");
+		log.info(cartUpdateRequestDTO);
 		cartService.updateCart(cartUpdateRequestDTO);
 		return ResponseEntity.ok().build();
 	}

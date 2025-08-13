@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hana7.hanaro.domain.item.dto.ItemRequestDTO;
 import com.hana7.hanaro.domain.item.dto.ItemResponseDTO;
-import com.hana7.hanaro.domain.item.repository.ItemRepository;
 import com.hana7.hanaro.domain.item.service.ItemService;
 
 import jakarta.validation.constraints.Min;
@@ -36,16 +35,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-	private final ItemRepository itemRepository;
 	private final ItemService itemService;
 
 	@Operation(summary = "상품 등록 (관리자용)")
 	@PostMapping(value="",consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> insertItem(@Validated ItemRequestDTO itemRequestDTO) {
-		itemService.insertItem(itemRequestDTO);
-
-		return ResponseEntity.ok().build();
+		com.hana7.hanaro.domain.item.entity.Item newItem = itemService.insertItem(itemRequestDTO);
+		java.util.Map<String, Long> response = new java.util.HashMap<>();
+		response.put("id", newItem.getId());
+		return ResponseEntity.ok(response);
 	}
 
 	@Operation(summary = "상품 조회 (관리자용)")

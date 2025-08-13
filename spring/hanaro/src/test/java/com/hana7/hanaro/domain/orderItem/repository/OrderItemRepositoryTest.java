@@ -32,25 +32,22 @@ class OrderItemRepositoryTest extends RepositoryTest {
     @Autowired
     private ItemRepository itemRepository;
 
-    private User testUser;
-    private Item testItem;
+	private Item testItem;
     private Order testOrder;
 
     @BeforeEach
     void setUp() {
-        // Ensure clean state
         orderItemRepository.deleteAll();
         orderRepository.deleteAll();
         itemRepository.deleteAll();
         userRepository.deleteAll();
 
-        // Create and save dependencies
-        testUser = userRepository.save(User.builder()
-                .name("주문아이템유저")
-                .email("orderitem@gmail.com")
-                .password("testPassword")
-                .role(UserRole.ROLE_USER)
-                .build());
+		User testUser = userRepository.save(User.builder()
+			.name("주문아이템유저")
+			.email("orderitem@gmail.com")
+			.password("testPassword")
+			.role(UserRole.ROLE_USER)
+			.build());
 
         testItem = itemRepository.save(Item.builder()
                 .name("주문아이템테스트상품")

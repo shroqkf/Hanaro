@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SalesStatsRepository extends JpaRepository<SalesStats, Long> {
     List<SalesStats> findBySaledtBetween(String startDate, String endDate);
+    java.util.Optional<SalesStats> findBySaledt(String saledt);
 }

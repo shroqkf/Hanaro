@@ -34,10 +34,4 @@ public class SalesStats extends BaseEntity {
     // 총 주문 수
     @Column(nullable = false)
     private Long totalOrderCount;
-
-    public SalesStats(String saledt, Long totalOrderCount, Long totalSalesAmount) {
-        this.saledt = saledt;
-        this.totalOrderCount = totalOrderCount;
-        this.totalSalesAmount = totalSalesAmount;
-    }
 }

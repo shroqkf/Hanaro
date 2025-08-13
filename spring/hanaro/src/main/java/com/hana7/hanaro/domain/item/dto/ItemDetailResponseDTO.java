@@ -11,5 +11,6 @@ public class ItemDetailResponseDTO {
 	private Long id;
 	private String itemName;
 	private int price;
+	private int stock;
 	private List<String> imageUrls;
 }

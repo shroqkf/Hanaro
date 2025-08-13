@@ -30,42 +30,46 @@ public class SalesStatsService {
     private final SalesStatsItemRepository salesStatsItemRepository;
 
     // 매일 새벽 1시에 전날의 매출 통계를 계산하여 저장
-    @Scheduled(cron = "0 0 1 * * ?")
+    @Scheduled(cron = "*/10 * * * * *")
     @Transactional
     public void scheduledDailyStats() {
         LocalDate yesterday = LocalDate.now().minusDays(1);
-        log.info("일별 통계: {}", yesterday);
         calculateAndSaveDailyStats(yesterday);
-    }
+		LocalDateTime today= LocalDateTime.now();
+		calculateAndSaveDailyStats(LocalDate.from(today));
+
+	}
 
     // 특정 날짜(date)의 매출 통계를 계산하고 DB에 저장
-    @Transactional
-    public void calculateAndSaveDailyStats(LocalDate date) {
-        LocalDateTime startDateTime = date.atStartOfDay();
-        LocalDateTime endDateTime = date.atTime(LocalTime.MAX);
+	@Transactional
+	public void calculateAndSaveDailyStats(LocalDate date) {
+		LocalDateTime startDateTime = date.atStartOfDay();
+		LocalDateTime endDateTime = date.atTime(LocalTime.MAX);
 
-        // 해당 날짜의 "COMPLETED" 상태인 주문 목록 조회
-        List<Order> completedOrders = orderRepository.findByStatusAndCreatedAtBetween(
-            OrderState.COMPLETED, startDateTime, endDateTime);
+		// 해당 날짜의 "COMPLETED" 상태인 주문 목록 조회
+		List<Order> completedOrders = orderRepository.findByStatusAndCreatedAtBetween(
+			OrderState.COMPLETED, startDateTime, endDateTime);
 
-        // 총 매출액 계산
-        long totalSalesAmount = completedOrders.stream()
-            .mapToLong(Order::getTotalPrice)
-            .sum();
+		// 총 매출액 계산
+		long totalSalesAmount = completedOrders.stream()
+			.mapToLong(Order::getTotalPrice)
+			.sum();
 
-        // 총 주문 수
-        long totalOrderCount = completedOrders.size();
+		// 총 주문 수
+		long totalOrderCount = completedOrders.size();
 
-        // 통계 엔티티 생성 및 저장
-        SalesStats dailyStats = SalesStats.builder()
-            .saledt(date.format(DateTimeFormatter.ofPattern("yyyyMMdd")))
-            .totalSalesAmount(totalSalesAmount)
-            .totalOrderCount(totalOrderCount)
-            .build();
+		String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-        salesStatsRepository.save(dailyStats);
-        log.info("일별 통계 {}: 매출={}, 주문건수={}", date, totalSalesAmount, totalOrderCount);
-    }
+		// 통계 엔티티 생성 또는 업데이트
+		SalesStats dailyStats = salesStatsRepository.findBySaledt(formattedDate)
+			.orElseGet(() -> SalesStats.builder().saledt(formattedDate).build());
+
+		dailyStats.setTotalSalesAmount(totalSalesAmount);
+		dailyStats.setTotalOrderCount(totalOrderCount);
+
+		salesStatsRepository.save(dailyStats);
+		log.info("일별 통계 {}: 매출={}, 주문건수={}", date, totalSalesAmount, totalOrderCount);
+	}
 
      // 특정 기간 동안의 매출 통계 조회
     public AggregatedSalesStatsResponseDTO getStatsByDateRange(LocalDate startDate, LocalDate endDate) {

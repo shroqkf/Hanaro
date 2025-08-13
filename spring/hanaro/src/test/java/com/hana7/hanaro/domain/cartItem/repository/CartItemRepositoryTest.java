@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
@@ -34,8 +33,7 @@ class CartItemRepositoryTest extends RepositoryTest {
     @Autowired
     private ItemRepository itemRepository;
 
-    private User testUser;
-    private Item testItem;
+	private Item testItem;
     private Cart testCart;
 
     @BeforeEach
@@ -45,12 +43,12 @@ class CartItemRepositoryTest extends RepositoryTest {
         itemRepository.deleteAll();
         userRepository.deleteAll();
 
-        testUser = userRepository.save(User.builder()
-                .name("장바구니유저")
-                .email("cart@gmail.com")
-                .password("testPassword")
-                .role(UserRole.ROLE_USER)
-                .build());
+		User testUser = userRepository.save(User.builder()
+			.name("장바구니유저")
+			.email("cart@gmail.com")
+			.password("testPassword")
+			.role(UserRole.ROLE_USER)
+			.build());
 
         testItem = itemRepository.save(Item.builder()
                 .name("장바구니테스트상품")
@@ -60,7 +58,6 @@ class CartItemRepositoryTest extends RepositoryTest {
 
         testCart = cartRepository.save(Cart.builder()
                 .user(testUser)
-                .quantity(0)
                 .build());
     }
 

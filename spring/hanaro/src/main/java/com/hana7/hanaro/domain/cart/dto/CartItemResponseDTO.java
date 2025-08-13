@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CartItemResponseDTO {
+	private Long cartItemId;
 	private Long itemId;
 	private String itemName;
 	private long price;

@@ -1,6 +1,5 @@
 package com.hana7.hanaro.domain.cart.service;
 
-import com.hana7.hanaro.common.exception.CartItemInsertBadRequestException;
 import com.hana7.hanaro.common.exception.CartNotFoundException;
 import com.hana7.hanaro.common.exception.ItemNotFoundException;
 import com.hana7.hanaro.common.security.exception.UserNotFoundException;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -37,7 +37,7 @@ public class CartService {
 	private final CartItemRepository cartItemRepository;
 
 	// 장바구니 담기
-	public void addItem(CartRequestDTO cartRequestDTO) throws CartItemInsertBadRequestException {
+	public void addItem(CartRequestDTO cartRequestDTO) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		User user = userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
@@ -48,26 +48,24 @@ public class CartService {
 			cart = Cart.builder()
 				.user(user)
 				.build();
-			try{
-				cartRepository.save(cart);
-			} catch(Exception e){
-				throw new CartItemInsertBadRequestException();
-			}
+			cartRepository.save(cart);
 		}
 
 		Cart finalCart = cart;
 
-		List<CartItem> cartItems = cartRequestDTO.getItems().stream()
-			.map((cartItem) -> {
-				Item item = itemRepository.findById(cartItem.getItemId()).orElseThrow(ItemNotFoundException::new);
-				return cartItem.toEntity(finalCart, item);
-			}).toList();
+		cartRequestDTO.getItems().forEach(itemRequest -> {
+			Item item = itemRepository.findById(itemRequest.getItemId()).orElseThrow(ItemNotFoundException::new);
+			java.util.Optional<CartItem> existingCartItem = cartItemRepository.findByCartAndItem(finalCart, item);
 
-		try {
-			cartItemRepository.saveAll(cartItems);
-		} catch (Exception e) {
-			throw new CartItemInsertBadRequestException();
-		}
+			if (existingCartItem.isPresent()) {
+				CartItem cartItemToUpdate = existingCartItem.get();
+				cartItemToUpdate.setQuantity(cartItemToUpdate.getQuantity() + itemRequest.getQuantity());
+				cartItemRepository.save(cartItemToUpdate);
+			} else {
+				CartItem newCartItem = itemRequest.toEntity(finalCart, item);
+				cartItemRepository.save(newCartItem);
+			}
+		});
 	}
 
 	// 장바구니 조회
@@ -76,7 +74,7 @@ public class CartService {
 		String userName = authentication.getName();
 
 		User user = userRepository.findByEmail(userName).orElseThrow(UserNotFoundException::new);
-		Cart cart = cartRepository.findByUserIdWithCartItemsAndItems(user.getId()).orElse(null);
+		Cart cart = cartRepository.findByUser(user).orElse(null);
 
 		if (cart == null) {
 			return CartResponseDTO.builder()
@@ -88,6 +86,7 @@ public class CartService {
 
 		List<CartItemResponseDTO> cartItemResponseDTOS = cart.getCartItems().stream()
 			.map(cartItem -> CartItemResponseDTO.builder()
+				.cartItemId(cartItem.getId())
 				.itemId(cartItem.getItem().getId())
 				.itemName(cartItem.getItem().getName())
 				.price(cartItem.getItem().getPrice())
@@ -108,15 +107,18 @@ public class CartService {
 		String username = authentication.getName();
 
 		User user = userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
+
 		Cart cart = cartRepository.findByUser(user).orElseThrow(CartNotFoundException::new);
 
-		cartUpdateRequestDTO.getCartItems().forEach((i)->{
-			CartItem cartItem=cartItemRepository.findById(i.getCartItemId()).orElseThrow(ItemNotFoundException::new);
+		cartUpdateRequestDTO.getCartItems().forEach((i) -> {
+			CartItem cartItem = cartItemRepository.findById(i.getCartItemId())
+				.orElseThrow(ItemNotFoundException::new);
+
 			if (!cartItem.getCart().getId().equals(cart.getId())) {
 				throw new CartNotFoundException();
 			}
 
-			cartItem=cartItem.toBuilder().build();
+			cartItem.setQuantity(i.getQuantity());
 			cartItemRepository.save(cartItem);
 		});
 	}

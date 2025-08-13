@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "item")
+@Table(name = "item", indexes = @jakarta.persistence.Index(name = "idx_item_name", columnList = "name"))
 public class Item extends BaseEntity {
 
 	@Id
@@ -41,9 +42,11 @@ public class Item extends BaseEntity {
 	@Column(length = 30, nullable = false, name = "name")
 	private String name;
 
+	@Min(0)
 	@Column(nullable = false, name = "price")
 	private Integer price;
 
+	@Min(0)
 	@Column(nullable = false, name = "stock")
 	@ColumnDefault("0")
 	private Integer stock;

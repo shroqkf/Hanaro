@@ -9,11 +9,10 @@ import com.hana7.hanaro.domain.cart.entity.Cart;
 import com.hana7.hanaro.domain.user.entity.User;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
+	@Query("SELECT c FROM Cart c "
+		+ "LEFT JOIN FETCH c.cartItems ci "
+		+ "LEFT JOIN FETCH ci.item WHERE c.user = :user")
 	Optional<Cart> findByUser(User user);
 
 	Optional<Cart> findByUserId(Long id);
-
-	@Query("SELECT c FROM Cart c "
-		+ "WHERE c.user.id = :userId")
-	Optional<Cart> findByUserIdWithCartItemsAndItems(Long userId);
 }

@@ -11,7 +11,7 @@ import lombok.Data;
 public class UserLoginRequestDTO {
 	@NotBlank(message = "사용자명은 필수입니다.")
 	@Size(min = 1, max=20, message = "..")
-	@Schema(name = "name", example = "test@example.com")
+	@Schema(name = "name", example = "example@gmail.com")
 	String name;
 
 	@NotBlank(message = "비밀번호는 필수입니다.")
